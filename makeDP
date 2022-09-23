@@ -10,7 +10,6 @@ OUT := $(OUT_BASE)/$(pack)
 
 WORLD_PACK := $(WORLD_BASE)/$(world)/datapacks/$(pack)
 
-
 target:
     ifneq ($(pack), NONE)
         $(shell build/main.exe $(SRC) -o $(OUT))
@@ -18,4 +17,4 @@ target:
             $(shell rm -r $(WORLD_PACK))
             $(shell cp -R $(OUT) $(WORLD_PACK))
         endif
-    endif
+    endif    
