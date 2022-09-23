@@ -1,2 +1,0 @@
-(const) (int | bool | str) [name] = [expression]
-expression = (name | number | false | true | "string") 
