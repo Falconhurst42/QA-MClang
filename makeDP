@@ -14,7 +14,7 @@ target:
     ifneq ($(pack), NONE)
         $(shell build/main.exe $(SRC) -o $(OUT))
         ifneq ($(world), NONE)
-            $(shell rm -r $(WORLD_PACK))
-            $(shell cp -R $(OUT) $(WORLD_PACK))
+            $(shell rm -r "$(WORLD_PACK)")
+            $(shell cp -R "$(OUT) $(WORLD_PACK)")
         endif
     endif    
