@@ -1,0 +1,9 @@
+
+void main() {
+    int x = 4;
+    if (x < 3)
+        return;
+    int y = 3;
+    return;
+    x = y;
+}

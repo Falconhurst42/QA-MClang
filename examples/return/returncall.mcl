@@ -1,0 +1,11 @@
+
+void f() {
+    /say hello!
+}
+
+// Should only say "hello!" once
+void g() {
+    f();
+    return;
+    f();
+}

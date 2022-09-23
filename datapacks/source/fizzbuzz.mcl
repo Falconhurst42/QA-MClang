@@ -1,0 +1,19 @@
+int n;  void load() {
+    n = 0;
+}
+
+void fizzbuzz() {
+    if(n % 3 == 0 && n % 5 == 0)
+        /tellraw @a {"text":"FízzBuzz"}
+    else if(n % 3 == 0) {
+        const str AS_CNST = "\a\b\f\r\t\n\v@e[type=pig,limit=1]";
+        as(AS_CNST) {
+            /say Fizz
+        }
+        // /tellraw @a {"text":"Fízz"}
+    } else if(n % 5 == 0)
+        /tellraw @a {"text":"Buzz"}
+    else
+        /tellraw @a {"score":{"objective":"mclang","name":"n"}}
+    n++;
+}

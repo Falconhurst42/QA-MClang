@@ -1,0 +1,12 @@
+
+void main() {
+    f(2);
+}
+
+int f(int x) {
+    while ("entity @e[type=pig]") {
+        /kill @a
+        return x;
+    }
+    return -1;
+}

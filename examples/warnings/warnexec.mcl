@@ -1,0 +1,4 @@
+
+void main() {
+    /execute if entity @a run say hello!
+}

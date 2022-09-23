@@ -1,0 +1,16 @@
+
+// Unlike in other programming languages, we can't modify strings, so the
+// solution is not as nice as in other programming languages
+
+void fizzbuzz() {
+    for (int i = 0; i < 100; i++) {
+        if (i % 3 == 0 && i % 5 == 0)
+            /tellraw @a {"text":"FizzBuzz"}
+        else if (i % 3 == 0)
+            /tellraw @a {"text":"Fizz"}
+        else if (i % 5 == 0)
+            /tellraw @a {"text":"Buzz"}
+        else
+            /tellraw @a {"score":{"objective":"mclang","name":"i"}}
+    }
+}

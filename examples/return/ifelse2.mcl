@@ -1,0 +1,11 @@
+
+void main() {
+    if ("entity @a[gamemode=!adventure]") {
+        /say hello
+        return;
+    } else if ("entity @a") {
+        /say woop woop!
+    }
+    int x = 5;
+    return;
+}

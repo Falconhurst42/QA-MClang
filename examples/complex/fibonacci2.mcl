@@ -1,0 +1,12 @@
+
+void main() {
+    int prev2 = 0, prev1 = 1;
+    /say 0
+    /say 1
+    for (int i = 2; i < 100; i++) {
+        int tmp = prev1;
+        prev1 += prev2;
+        prev2 = prev1;
+        /tellraw @a {"score":{"objective":"mclang","name":"prev1"}}
+    }
+}

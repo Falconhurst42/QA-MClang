@@ -1,0 +1,10 @@
+
+void main() {
+    int x = 0;
+    while (x < 5) {
+        /say hello!
+        x++;
+        return;
+    }
+    x = 5;
+}

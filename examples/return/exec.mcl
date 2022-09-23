@@ -1,0 +1,9 @@
+
+void main() {
+    int x = 5;
+    as ("@a") {
+        x = 3;
+        return;
+    }
+    x = 7;
+}

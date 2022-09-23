@@ -1,0 +1,9 @@
+
+void f() {
+    int x = 3;
+    return;
+}
+
+void main() {
+    int y = f() + 3;
+}

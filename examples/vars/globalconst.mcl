@@ -1,0 +1,10 @@
+
+const int x = 4;
+const str y = "Hello!";
+int z;
+
+void main() {
+    /say {{y}}
+    /say {{x}}
+    z = x + 1;
+}

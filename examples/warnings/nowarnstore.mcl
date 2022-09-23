@@ -1,0 +1,4 @@
+
+void main() {
+    /execute store result score @a woop run data get entity @e[tag=woop,limit=1] Pos[1] 
+}

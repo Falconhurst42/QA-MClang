@@ -1,0 +1,7 @@
+
+void main() {
+    int i = 0;
+    i += 2;
+    int j = 20;
+    i *= j;
+}

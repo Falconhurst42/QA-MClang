@@ -1,0 +1,14 @@
+
+void main() {
+    int x = 5;
+    if (x++) {
+        x = 1;
+        return;
+    } else if (x--) {
+        x = 2;
+        return;
+    } else {
+        x = 3;
+    }
+    x = 4;
+}

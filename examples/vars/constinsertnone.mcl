@@ -1,0 +1,7 @@
+
+// These constants do not exist and therefore should not be replaced
+void main() {
+    /say {{notaconst}}
+    const str x = "Hello {{name}}!";
+    /say {{x}}
+}

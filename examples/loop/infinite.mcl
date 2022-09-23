@@ -1,0 +1,5 @@
+
+void main() {
+    while (true)
+        /say Going to crash in 3... 2... 1...
+}

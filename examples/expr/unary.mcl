@@ -1,0 +1,6 @@
+
+void main() {
+    int x = 28;
+    int y = -x;
+    int z = +y;
+}

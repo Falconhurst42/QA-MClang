@@ -1,0 +1,124 @@
+
+#include "bcconvert/bcconvert.h"
+#include "compiler/compiler.h"
+#include "errorhandle/handle.h"
+#include "filemanager/manager.h"
+#include <dirent.h>
+#include <filesystem>
+#include <fstream>
+#include <string>
+#include <sys/stat.h>
+#include <vector>
+
+#ifdef OS_WINDOWS
+    #include <windows.h>
+    #define MKDIR_FAIL_CODE -1
+    #define DIRSEP std::string("\\")
+#else
+    #define MKDIR_FAIL_CODE -1
+    #define DIRSEP std::string("/")
+#endif
+
+FileManager::FileManager(Compiler *comp) : root(comp->outputFolder),
+ns(comp->ns), comp(comp) {
+    deletePrevPack();
+    createSubFolder("");
+}
+
+FileManager::~FileManager() {
+
+}
+
+void FileManager::genDatapack(const std::vector<CmdFunc> &cmds) const {
+    genFolderStructure();
+    genPackFile();
+    for (unsigned int i = 0; i < cmds.size(); i++)
+        genFunctionFile(cmds[i]);
+}
+
+void FileManager::genFunctionFile(const CmdFunc &func) const {
+    std::ofstream file(root + DIRSEP + "data" + DIRSEP + ns + DIRSEP
+    + "functions" + DIRSEP + func.name + ".mcfunction");
+    if (file.is_open()) {
+        for (unsigned int j = 0; j < func.cmdList.size(); j++)
+            file << func.cmdList[j] << std::endl;
+    } else {
+        MCLError("Could not write to file '" + func.name + ".mcfunction'.");
+    }
+    file.close();
+    if (func.name == "tick")
+        addFuncTag("tick", "tick");
+    if (func.name == "load")
+        addFuncTag("load", "load");
+}
+
+int FileManager::getPackFormat() const {
+    std::string ver = comp->mcVersion;
+    if (packVersions.find(ver) == packVersions.end())
+        MCLError("Unsupported version given: '" + ver + "'.");
+    return packVersions.find(ver)->second;
+}
+
+void FileManager::genPackFile() const {
+    std::string description = comp->description;
+    if (description == "")
+        description = "Generated with MCLang, see "
+        "https://github.com/PurpleStripedUnicorn/MCLang";
+    std::ofstream file(root + DIRSEP + "pack.mcmeta");
+    if (file.is_open()) {
+        file << "{\"pack\":{\"pack_format\":" << getPackFormat() << ","
+        << "\"description\":\"" << description << "\"}}";
+    } else {
+        MCLError("Could not write to file 'pack.mcmeta'.");
+    }
+}
+
+void FileManager::deletePrevPack() const {
+    if (!std::filesystem::is_directory(root))
+        return;
+    std::ifstream metaFile(root + DIRSEP + "pack.mcmeta");
+    if (metaFile.good() || std::filesystem::is_empty(root)) {
+        metaFile.close();
+        std::error_code ec;
+        std::filesystem::remove_all(root, ec);
+        if (ec.value() != 0)
+            MCLError("Something went wrong while deleting old directory.");
+    } else {
+        metaFile.close();
+        MCLError("Output folder exists, but is not a datapack.");
+    }
+}
+
+void FileManager::genFolderStructure() const {
+    createSubFolder("data");
+    createSubFolder("data" + DIRSEP + ns);
+    createSubFolder("data" + DIRSEP + ns + DIRSEP + "functions");
+    createSubFolder("data" + DIRSEP + "minecraft");
+    createSubFolder("data" + DIRSEP + "minecraft" + DIRSEP + "tags");
+    createSubFolder("data" + DIRSEP + "minecraft" + DIRSEP + "tags" + DIRSEP
+    + "functions");
+}
+
+void FileManager::createSubFolder(std::string path) const {
+    createFolder(root + DIRSEP + path);
+}
+
+void FileManager::createFolder(std::string path) const {
+#ifdef OS_WINDOWS
+    int check = mkdir(path.c_str());
+#else
+    int check = mkdir(path.c_str(), 0777);
+#endif
+    if (check == MKDIR_FAIL_CODE) {
+        MCLError("Could not create folder '" + path + "'");
+    }
+}
+
+void FileManager::addFuncTag(std::string tag, std::string funcname) const {
+    std::ofstream file(root + DIRSEP + "data" + DIRSEP + "minecraft" + DIRSEP
+    + "tags" + DIRSEP + "functions" + DIRSEP + tag + ".json");
+    if (!file.is_open())
+        MCLError("Could not write to file \"" + tag + ".json\".");
+    file << "{\"values\":[\"" + ns + ":" + funcname + "\"]}";
+    file.close();
+}

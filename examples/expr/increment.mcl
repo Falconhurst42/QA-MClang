@@ -1,0 +1,8 @@
+
+void main() {
+    int i = 0;
+    i++;
+    // j and k should be the same after this operation
+    int j = --i;
+    int k = i++;
+}

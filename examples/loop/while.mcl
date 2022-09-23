@@ -1,0 +1,10 @@
+
+void main() {
+    bool running = true;
+    int num = 764;
+    while (running) {
+        num = num / 2;
+        if (num <= 1)
+            running = false;
+    }
+}

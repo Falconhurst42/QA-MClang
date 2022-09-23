@@ -1,0 +1,11 @@
+
+void f(const str x) {
+    /say {{x}} {{y}}
+}
+
+void main() {
+    const str x = "Hello \"World\"!";
+    const str y = "Hey \'there\'\!";
+    f(y);
+    f(x);
+}

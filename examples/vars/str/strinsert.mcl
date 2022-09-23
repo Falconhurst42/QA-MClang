@@ -1,0 +1,6 @@
+
+void main() {
+    const str player = "PurpleStriped";
+    if ("entity @a[name={{player}}]")
+        /say Hello PurpleStriped
+}

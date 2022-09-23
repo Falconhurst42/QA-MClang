@@ -1,0 +1,6 @@
+
+void main() {
+    int y = 10;
+    int x = 9 - y / 20;
+    x = 10 + 5 * x;
+}

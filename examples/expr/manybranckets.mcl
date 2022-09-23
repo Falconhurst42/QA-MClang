@@ -1,0 +1,7 @@
+
+void main() {
+    int x;
+    int y = 10;
+    int z = 83;
+    y += z = z++ / (--x / 2) + 43 * (x++ + 3);
+}

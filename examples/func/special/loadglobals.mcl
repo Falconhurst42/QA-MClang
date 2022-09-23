@@ -1,0 +1,8 @@
+
+const str x = "Hello World!";
+int y;
+bool z;
+
+void load() {
+    /say {{x}}
+}

@@ -1,0 +1,11 @@
+
+int test() {
+    int x = 9;
+    if (x == 7)
+        return 7;
+    int y = 4;
+}
+
+void main() {
+    int z = test();
+}

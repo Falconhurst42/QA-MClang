@@ -1,0 +1,8 @@
+
+void f(int x, int y) {
+    int z = x + y;
+}
+
+void main() {
+    f(6, 4);
+}
