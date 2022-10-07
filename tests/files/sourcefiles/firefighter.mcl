@@ -1,0 +1,30 @@
+namespace firefighter;
+
+bool extinguish; 
+
+void load() {
+    extinguish = false;
+    /give @a snowball{display:{Name:'{"text":"Toggle Firefighter"}'}} 1
+}
+
+void toggle() {
+    extinguish = !extinguish;
+}
+
+void tick() {
+    const str AS_CLS = "@e[type=snowball,nbt={Item:{tag:{display:{Name:'{\"text\":\"Toggle Firefighter\"}'}}}}]";
+    as(AS_CLS) {
+        toggle();
+        at("@s") {
+            /give @p snowball{display:{Name:'{"text":"Toggle Firefighter"}'}} 1
+        }
+        /kill @s
+    }
+    if(extinguish) {
+        as ("@p") {
+            unless("data entity @s {Fire:-20s}") {
+                /effect give @s fire_resistance 1
+            }
+        }
+    }
+}

@@ -1,0 +1,30 @@
+namespace platform;
+
+bool makeFloor; 
+
+void load() {
+    makeFloor = false;
+    /give @a snowball{display:{Name:'{"text":"Toggle Platform"}'}} 1
+}
+
+void toggle() {
+    makeFloor = !makeFloor;
+}
+
+void tick() {
+    const str AS_CLS = "@e[type=snowball,nbt={Item:{tag:{display:{Name:'{\"text\":\"Toggle Platform\"}'}}}}]";
+    as(AS_CLS) {
+        toggle();
+        at("@s") {
+            /give @p snowball{display:{Name:'{"text":"Toggle Platform"}'}} 1
+        }
+        /kill @s
+    }
+    if(makeFloor) {
+        as ("@p") {
+            at ("@s") {
+                /setblock ~ ~-1 ~ minecraft:stone
+            }
+        }
+    }
+}
