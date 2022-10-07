@@ -1,0 +1,18 @@
+# makeDP
+ - Paths
+   - `SRC_BASE` - where it will look for the .mcl
+     - Default: `datapacks/source`
+   - `OUT_BASE` - where it will put the completed pack
+     - Default: datapacks/compiled
+   - `WORLD_BASE` - base location of minecraft worlds
+     - Default: `/mnt/c/Users/{ethan}/AppData/Roaming/.minecraft/saves`
+     - Update this yourself
+ - Args
+   - `pack` - the name of the `.mcl` file you wish to compile (without the `.mcl`)
+     - the make looks for `{SRC_BASE}/{pack}.mcl`
+   - `world` (optional) - the name of the minecraft world you want to copy the pack to
+ - Example
+   - `make -f makeDP world=MCLang pack=test`
+ - In Minecraft
+   - `/reload`
+   - The pack should be loaded, but you can check with `/datapack list` and enable with `/datapack enable {pack}`

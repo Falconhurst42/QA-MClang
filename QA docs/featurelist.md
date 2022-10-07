@@ -1,0 +1,28 @@
+# Features of MCLang
+ - ## Variables
+   - Accesible as score objective in minecraft
+   - Can't access dynamically in C-like code
+ - ## Automatic function handling
+   - functions accessible by name in minecraft
+   - ### `tick()` and `load()`
+     - only can have one function of each name, even across datapacks (esp. notable with tick and load)
+ - ## Compile-time int/bool math evaluation
+   - math error blocks compiler but doesn't throw error. What is this handling?
+ - ## Nested Clauses
+   - ### Execute Subcommand
+     - if, else if, if
+   - ### C-like if-statement
+   - ### C-like for-loops
+ - ## String parsin
+   - ### `const str` class
+     - parses whitespace escape characters (but not anything else)
+   - Does not parse escapes in explicit strings
+ - ## Recognition of Minecraft command
+ - ## Comments
+   - `//`
+   - `/**/`
+ - ## Preprocessor
+   - `#include`
+   - `#define`
+ - ## Orphan Features
+   - `namespace name`

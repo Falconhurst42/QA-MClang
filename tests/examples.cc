@@ -3,14 +3,14 @@
  * programming, execution of this script may be dangerous on some systems!
  */
 #include <iostream>
-#include <filesystem>
+#include <experimental/filesystem>
 #include <set>
 #include <string>
 #include <vector>
 
 std::set<std::string> getFileNames(std::string path = "examples") {
     std::set<std::string> out;
-    for (auto const &entry : std::filesystem::directory_iterator(path)) {
+    for (auto const &entry : std::experimental::filesystem::v1::directory_iterator(path)) {
         if (entry.is_regular_file())
             out.insert(entry.path().string());
         if (entry.is_directory()) {
