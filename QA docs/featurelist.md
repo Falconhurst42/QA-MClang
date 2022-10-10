@@ -1,4 +1,8 @@
 # Features of MCLang
+ - ## File IO
+   - Open `.mcl` files
+     - including `#include`
+   - Create datapack folder and files
  - ## Variables
    - Accesible as score objective in minecraft
    - Can't access dynamically in C-like code
@@ -13,7 +17,7 @@
      - if, else if, if
    - ### C-like if-statement
    - ### C-like for-loops
- - ## String parsin
+ - ## String parsing
    - ### `const str` class
      - parses whitespace escape characters (but not anything else)
    - Does not parse escapes in explicit strings
