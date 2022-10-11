@@ -1,4 +1,8 @@
 # Features of MCLang
+ - ## Command Line Args
+   - source file
+   - `-o` output location
+   - `-n` namespace
  - ## File IO
    - Open `.mcl` files
      - including `#include`
