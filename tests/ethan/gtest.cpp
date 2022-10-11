@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "mctest.cpp"
+#include "MCLangTests.cpp"
  
 int main(int argc, char **argv) {
     testing::InitGoogleTest(&argc, argv);

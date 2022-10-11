@@ -21,8 +21,8 @@
 struct stat info;
 
 const std::string SRC_EXT = ".mcl",
-                  SOURCE_PATH = "files/sourcefiles/",
-                  DATA_PATH = "files/datafiles/", 
+                  SOURCE_PATH = "../files/sourcefiles/",
+                  DATA_PATH = "../files/datafiles/", 
                   DEF_FILENAME = "gtest";
 
 std::string makeSourcePath(std::string filename) {
@@ -97,9 +97,9 @@ CommandResult execCommand(std::string cmd) {
 //  to skip -o but provide -n, use `build(fff, "", nnn)`
 BuildResult build(std::string filename, std::string o = "", std::string n = "") {
 #ifdef _WIN32
-    std::string cmd = "..\\build\\main.exe " + makeSourcePath(filename);
+    std::string cmd = "..\\..\\build\\main.exe " + makeSourcePath(filename);
 #else
-    std::string cmd = "../build/main " + makeSourcePath(filename);
+    std::string cmd = "../../build/main " + makeSourcePath(filename);
 #endif
     if(o != "")
         cmd.append(" -o " + o);

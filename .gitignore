@@ -1,9 +1,7 @@
 build
 datapacks
-tests/CMakeFiles
-tests/cmake_install.cmake
-tests/CMakeCache.txt
-tests/runTests
-tests/Makefile
-tests/gtest.cpp
-makeDP
+tests/*/CMakeFiles
+tests/*/cmake_install.cmake
+tests/*/CMakeCache.txt
+tests/*/runTests
+tests/*/Makefile
