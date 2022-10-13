@@ -24,6 +24,7 @@ const std::string SRC_EXT = ".mcl",
                   DATA_PATH = "../files/datafiles/";
 const std::string NO_NAMESPACE = "",
                   DEF_NAMESPACE = "dp";
+const std::vector<std::string> TAGGED_FUNCT_NAMES = {"load", "tick"};
 
 /***************************************|
 |                                       |
@@ -40,7 +41,7 @@ inline std::string makeCompiledPath(std::string filename) {
 }
 // get location of function .json files (for load, tick)
 inline std::string makeTagsPath(std::string filename, std::string namesp) {
-    return makeCompiledPath(filename) + "/data/" + namesp + "/minecraft/tags/functions";
+    return makeCompiledPath(filename) + "/data/minecraft/tags/functions";
 }
 // get location of generated `.mcfunction` files
 inline std::string makeFunctionsPath(std::string filename, std::string namesp) {
@@ -54,20 +55,45 @@ inline std::string makeFunctionsPath(std::string filename, std::string namesp) {
 |***************************************/
 
 struct stat info;
-// Checks if the file with the given path can be opened by an ifstream object
-// TODO: rewrite with <sys/stat.h>
-inline bool fileCanOpen(std::string path) {
-    return std::ifstream(path).is_open();
+
+// Checks if the given path points to a valid file
+// https://stackoverflow.com/a/18101042
+inline bool fileExists(std::string path) {
+    if( stat( path.c_str(), &info ) != 0 ) // check access
+        return false;
+    else if( info.st_mode & S_IFMT )  // S_IFMT() ??might not?? exist on my windows 
+        return true;
+    else
+        return false;
 }
 // Checks if the given path points to a valid directory
 // https://stackoverflow.com/a/18101042
 bool directoryExists(std::string path) {
-    if( stat( path.c_str(), &info ) != 0 )
+    if( stat( path.c_str(), &info ) != 0 ) // check access
         return false;
     else if( info.st_mode & S_IFDIR )  // S_ISDIR() doesn't exist on my windows 
         return true;
     else
         return false;
+}
+std::string getFileContents(std::string filepath) {
+    std::ifstream in(filepath, std::ios::in | std::ios::binary);
+    std::string output;
+ 
+    // check that the file is open
+    if (in.is_open()) {
+        // resize output string to proper size
+        in.seekg(0, std::ios::end);
+        output.reserve(in.tellg());
+        in.seekg(0, std::ios::beg);
+    
+        // copy from file to string
+        std::copy((std::istreambuf_iterator<char>(in)), std::istreambuf_iterator<char>(), std::back_inserter(output));
+    
+        // close file
+        in.close();
+    }
+    return output;
 }
 
 /***************************************|
@@ -129,7 +155,7 @@ CommandResult buildFile(std::string srcpath, std::string o = "", std::string n =
 
 void cleanupBuildFiles(std::string sourcepath, std::string outpath) {
     // remove source file (if it exists)
-    if(fileCanOpen(sourcepath))
+    if(fileExists(sourcepath))
         system(("rm " + sourcepath).c_str());
 
     // remove compiled pack
@@ -139,11 +165,11 @@ void cleanupBuildFiles(std::string sourcepath, std::string outpath) {
 
 /***************************************|
 |                                       |
-|                Types                  |
+|            DATAPACK CLASS             |
 |                                       |
 |***************************************/
 
-struct SourceFile {
+struct Datapack {
 /***************************************|
 |                                       |
 |              Sub-Types                |
@@ -214,7 +240,7 @@ struct SourceFile {
 |              Constructor              |
 |                                       |
 |***************************************/
-    SourceFile(std::vector<Function> fs = std::vector<Function>(), 
+    Datapack(std::vector<Function> fs = std::vector<Function>(), 
         std::vector<Variable> vs = std::vector<Variable>(),
         Namespace sp = NO_NAMESPACE) :
             name(DEF_FILENAME),
@@ -224,28 +250,6 @@ struct SourceFile {
             rez("", -1, NO_NAMESPACE) {
                 rez.code = -1;
             }
-    
-/***************************************|
-|                                       |
-|           Path Generators             |
-|                                       |
-|***************************************/
-    // get location of `.mcl` file
-    std::string getSourcePath() const {
-        return makeSourcePath(name);
-    }
-    // get location of datapack
-    std::string getCompiledPath() const {
-        return makeCompiledPath(name);
-    }
-    // get location of function .json files (for load, tick)
-    std::string getTagsPath() const {
-        return makeTagsPath(name, space);
-    }
-    // get location of generated `.mcfunction` files
-    std::string getFunctionsPath() const {
-        return makeFunctionsPath(name, space);
-    }
     
 /***************************************|
 |                                       |
@@ -270,12 +274,34 @@ struct SourceFile {
     std::string getPrimaryNamespace() const {
         // in-file namespace trumps
         if(space.space != NO_NAMESPACE)
-            return space;
+            return space.space;
         // check for dash_n arg from last build
         if(rez.code != -1 && rez.dash_n != NO_NAMESPACE)
             return rez.dash_n;
         // default
         return DEF_NAMESPACE;
+    }
+    
+/***************************************|
+|                                       |
+|           Path Generators             |
+|                                       |
+|***************************************/
+    // get location of `.mcl` file
+    std::string getSourcePath() const {
+        return makeSourcePath(name);
+    }
+    // get location of datapack
+    std::string getCompiledPath() const {
+        return makeCompiledPath(name);
+    }
+    // get location of function .json files (for load, tick)
+    std::string getTagsPath() const {
+        return makeTagsPath(name, getPrimaryNamespace());
+    }
+    // get location of generated `.mcfunction` files
+    std::string getFunctionsPath() const {
+        return makeFunctionsPath(name, getPrimaryNamespace());
     }
 
 /***************************************|
@@ -283,7 +309,7 @@ struct SourceFile {
 |               Building                |
 |                                       |
 |***************************************/
-    // builds the Sourcefile and returns whether the build returned a successful code
+    // builds the Datapack and returns whether the build returned a successful code
     //  saves command result to Rez
     //  places file at `makeSourcePath(name)`
     //  outputs datapack to `makeCompiledPath(name)`
@@ -324,7 +350,7 @@ struct SourceFile {
 |              Destructor               |
 |                                       |
 |***************************************/
-    ~SourceFile() {
+    ~Datapack() {
         cleanupBuild();
     }
 };
