@@ -1,8 +1,8 @@
 build
 datapacks
 .vscode
-tests/*/CMakeFiles
-tests/*/cmake_install.cmake
-tests/*/CMakeCache.txt
-tests/*/runTests
-tests/*/Makefile
+tests/ethan/CMakeFiles
+tests/ethan/cmake_install.cmake
+tests/ethan/CMakeCache.txt
+tests/ethan/runTests
+tests/ethan/Makefile
