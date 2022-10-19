@@ -2,6 +2,9 @@
 // Ethan Worth
 // 10/10/2022
 
+#ifndef UTILS_H
+#define UTILS_H
+
 #include <string>
 #include <cstdio>
 #include <memory>
@@ -162,3 +165,5 @@ void cleanupBuildFiles(std::string sourcepath, std::string outpath) {
     if(directoryExists(outpath))
         system(("rm -r " + outpath).c_str());
 }
+
+#endif

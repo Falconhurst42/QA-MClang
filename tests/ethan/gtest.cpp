@@ -1,5 +1,7 @@
 #include <gtest/gtest.h>
-#include "MCLangTests.cpp"
+#include "BuildBasics.cpp"
+#include "Functions.cpp"
+#include "Namespacing.cpp"
  
 int main(int argc, char **argv) {
     testing::InitGoogleTest(&argc, argv);
