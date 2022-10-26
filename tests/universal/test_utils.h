@@ -45,11 +45,11 @@ void VERIFY_GOOD_BUILD(const Datapack& src) {
         // check for var decls
 
     // scan individual functions
-    std::vector<std::string> foos = getDirectoryContents(FUNCT_PATH);
+    /*std::vector<std::string> foos = getDirectoryContents(FUNCT_PATH);
     std::cout << FUNCT_PATH << std::endl;
     for(std::string foo : foos) {
         std::cout << "   " << foo << std::endl;
-    }
+    }*/
 }
 
 // verifies that file has built properly

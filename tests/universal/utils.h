@@ -101,7 +101,7 @@ CommandResult execCommand(std::string cmd);
 // builds the file with the given path and returns the result
 //  optional args for output folder and namespace command line arguments
 //  to skip -o but provide -n, use `build(fff, "", nnn)`
-CommandResult buildFile(std::string srcpath, std::string o, std::string n);
+CommandResult buildFile(std::string srcpath, std::string o = "", std::string n = NO_NAMESPACE);
 
 void cleanupBuildFiles(std::string sourcepath, std::string outpath);
 
