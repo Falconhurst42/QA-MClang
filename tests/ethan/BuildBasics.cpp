@@ -11,11 +11,11 @@
 |                                       |
 |***************************************/
 
-TEST(BuildBasics, VerifyBuild_HelloWorld) {
+TEST(BuildBasics, HelloWorld) {
     Datapack src(HELLO_FILE);
     src.name = "VerifyBuild_HelloWorld";
     src.build();
-    VerifyGoodBuild(src);
+    VERIFY_GOOD_BUILD(src);
 
     // built files cleaned up by destructor when src falls out of scope
 }
@@ -28,7 +28,7 @@ TEST(BuildBasics, VerifyBuild_HelloWorld) {
 
 // verifies that attempting to build non-existent file will fail 
 //   with error including "Could not open given file"
-TEST(BuildBasics, InvalidFile_BuildFails) {
+TEST(BuildBasics, InvalidFile) {
     // find path with no `.mcl` file
     std::string name = "f";
     if(fileExists(makeSourcePath(name))) {

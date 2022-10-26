@@ -10,56 +10,56 @@
 |                                       |
 |***************************************/
 
-TEST(Functions, VerifyBuild_LoadNI) {
+TEST(Functions, LoadNI) {
     Datapack src((std::vector<Datapack::Function>){ LOAD_N_I }, (std::vector<Datapack::Variable>){ N_VAR, I_VAR });
     src.name = "VerifyBuild_TickLoadNI";
     src.build();
-    VerifyGoodBuild(src);
+    VERIFY_GOOD_BUILD(src);
 
     // built files cleaned up by destructor when src falls out of scope
 }
 
-TEST(Functions, VerifyBuild_LoadNI_NoVars) {
+TEST(Functions, LoadNI_NoVars) {
     Datapack src((std::vector<Datapack::Function>){ LOAD_N_I });
     src.name = "VerifyBuild_TickLoadNI";
     src.build();
-    VerifyBadBuild(src, "Use of uninitialized variable");
+    VERIFY_BAD_BUILD(src, "Use of uninitialized variable");
 
     // built files cleaned up by destructor when src falls out of scope
 }
 
-TEST(Functions, VerifyBuild_TickNI) {
+TEST(Functions, TickNI) {
     Datapack src((std::vector<Datapack::Function>){ TICK_N_I }, (std::vector<Datapack::Variable>){ N_VAR, I_VAR });
     src.name = "VerifyBuild_TickLoadNI";
     src.build();
-    VerifyGoodBuild(src);
+    VERIFY_GOOD_BUILD(src);
 
     // built files cleaned up by destructor when src falls out of scope
 }
 
-TEST(Functions, VerifyBuild_TickNI_NoVars) {
+TEST(Functions, TickNI_NoVars) {
     Datapack src((std::vector<Datapack::Function>){ TICK_N_I });
     src.name = "VerifyBuild_TickLoadNI";
     src.build();
-    VerifyBadBuild(src, "Use of uninitialized variable");
+    VERIFY_BAD_BUILD(src, "Use of uninitialized variable");
 
     // built files cleaned up by destructor when src falls out of scope
 }
 
-TEST(Functions, VerifyBuild_TickLoadNI) {
+TEST(Functions, TickLoadNI) {
     Datapack src((std::vector<Datapack::Function>){ TICK_N_I, LOAD_N_I }, (std::vector<Datapack::Variable>){ N_VAR, I_VAR });
     src.name = "VerifyBuild_TickLoadNI";
     src.build();
-    VerifyGoodBuild(src);
+    VERIFY_GOOD_BUILD(src);
 
     // built files cleaned up by destructor when src falls out of scope
 }
 
-TEST(Functions, VerifyBuild_TickLoadNI_NoVars) {
+TEST(Functions, TickLoadNI_NoVars) {
     Datapack src((std::vector<Datapack::Function>){ TICK_N_I, LOAD_N_I });
     src.name = "VerifyBuild_TickLoadNI";
     src.build();
-    VerifyBadBuild(src, "Use of uninitialized variable");
+    VERIFY_BAD_BUILD(src, "Use of uninitialized variable");
 
     // built files cleaned up by destructor when src falls out of scope
 }

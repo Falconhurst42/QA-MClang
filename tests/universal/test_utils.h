@@ -10,7 +10,7 @@
 //  - with successful return code
 //  - without any output
 //  - datapack folder created
-void VerifyGoodBuild(const Datapack& src) {
+void VERIFY_GOOD_BUILD(const Datapack& src) {
     // verify success code
     EXPECT_EQ(src.rez.code, 0);
     // verify no output
@@ -56,7 +56,7 @@ void VerifyGoodBuild(const Datapack& src) {
 //  - without successful return code
 //  - with output containing `err`
 //  - datapack folder not created
-void VerifyBadBuild(const Datapack& src, const std::string& err = "") {
+void VERIFY_BAD_BUILD(const Datapack& src, const std::string& err = "") {
     // verify success code
     EXPECT_NE(src.rez.code, 0);
     // verify err in output
