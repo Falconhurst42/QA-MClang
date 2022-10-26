@@ -1,13 +1,62 @@
-# Testing Guidelines
+# To Test:
+ - verify variable declarations. (Will it automatically createa a load function? where do these go)
+ - Detect malformed /functions
+ - Commments
+   - `//`
+   - `/**/`
+ - Check that /functions end up in compiled
+   - check with raw string searching
+   - do inaccessible branches get compiled?
+ - /execute sub-clauses
+   - Model this in datapack? or just parse manually?
+   - Nested clauses (and C-like if's)
+ - `const str` parsing
+   - Escape characters
+   - Containing comments 
+   - Verify that it's properly rendered through /execute sub-clause
+ - Compile-time arithmetic
+   - verify each individual op
+   - !! DIVIDE BY 0?? !!
+ - `#define`
+ - `#include`
+   - how does namespacing work?
+ - Namespacing
+   - place namespacer at different places throughout the file
+   - 
 
-## Inputs
- - `.mcl` file(s)
- - Command line args
-   - Input filepath
-   - Output filepath
-
-## Outputs
- - Command Line prints
- - Return code
- - Output files
- - Minecraft functionality
+# Features of MCLang
+ - ## Command Line Args
+   - source file
+   - `-o` output location
+   - `-n` namespace
+ - ## File IO
+   - Open `.mcl` files
+     - including `#include`
+   - Create datapack folder and files
+ - ## Variables
+   - Accesible as score objective in minecraft
+   - Can't access dynamically in C-like code
+ - ## Automatic function handling
+   - functions accessible by name in minecraft
+   - ### `tick()` and `load()`
+     - only can have one function of each name, even across datapacks (esp. notable with tick and load)
+ - ## Compile-time int/bool math evaluation
+   - math error blocks compiler but doesn't throw error. What is this handling?
+ - ## Nested Clauses
+   - ### Execute Subcommand
+     - if, else if, if
+   - ### C-like if-statement
+   - ### C-like for-loops
+ - ## String parsing
+   - ### `const str` class
+     - parses whitespace escape characters (but not anything else)
+   - Does not parse escapes in explicit strings
+ - ## Recognition of Minecraft command
+ - ## Comments
+   - `//`
+   - `/**/`
+ - ## Preprocessor
+   - `#include`
+   - `#define`
+ - ## Orphan Features
+   - `namespace name`

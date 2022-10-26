@@ -2,6 +2,8 @@
 #define TEST_UTILS_H
 
 #include <gtest/gtest.h>
+#include <string>
+#include <vector>
 #include "../universal/Datapack.h"
 
 // verifies that file has built properly
@@ -35,6 +37,18 @@ void VerifyGoodBuild(const Datapack& src) {
             // check file contents
             EXPECT_EQ(getFileContents(TAG_PATH + "/" + f.name + ".json"), "{\"values\":[\"" + NAMES + ":" + f.name + "\"]}");
         }
+    }
+
+    // do inaccessible MC functions end up in compiled?
+
+    // if !var.empty() || has_load --> check load
+        // check for var decls
+
+    // scan individual functions
+    std::vector<std::string> foos = getDirectoryContents(FUNCT_PATH);
+    std::cout << FUNCT_PATH << std::endl;
+    for(std::string foo : foos) {
+        std::cout << "   " << foo << std::endl;
     }
 }
 

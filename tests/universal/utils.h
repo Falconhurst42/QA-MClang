@@ -15,6 +15,7 @@
 #include <fstream>
 #include <cassert>
 #include <sys/stat.h>
+#include <dirent.h>
 
 /***************************************|
 |                                       |
@@ -23,6 +24,7 @@
 |***************************************/
 const std::string DEF_FILENAME = "source";
 const std::string SRC_EXT = ".mcl",
+                  FOO_EXT = ".mcfunction",
                   SOURCE_PATH = "../files/sourcefiles/",
                   DATA_PATH = "../files/datafiles/";
 const std::string NO_NAMESPACE = "",
@@ -39,16 +41,16 @@ inline std::string makeSourcePath(std::string filename) {
     return SOURCE_PATH + filename + SRC_EXT;
 }
 // get location of datapack
-inline std::string makeCompiledPath(std::string filename) {
-    return DATA_PATH + filename;
+inline std::string makeCompiledPath(std::string packname) {
+    return DATA_PATH + packname;
 }
 // get location of function .json files (for load, tick)
-inline std::string makeTagsPath(std::string filename, std::string namesp) {
-    return makeCompiledPath(filename) + "/data/minecraft/tags/functions";
+inline std::string makeTagsPath(std::string packname, std::string namesp) {
+    return makeCompiledPath(packname) + "/data/minecraft/tags/functions";
 }
 // get location of generated `.mcfunction` files
-inline std::string makeFunctionsPath(std::string filename, std::string namesp) {
-    return makeCompiledPath(filename) + "/data/" + namesp + "/functions";
+inline std::string makeFunctionsPath(std::string packname, std::string namesp) {
+    return makeCompiledPath(packname) + "/data/" + namesp + "/functions";
 }
 
 /***************************************|
@@ -79,6 +81,28 @@ bool directoryExists(std::string path) {
     else
         return false;
 }
+
+// using Unix `dirent.h` per https://stackoverflow.com/a/612176
+std::vector<std::string> getDirectoryContents(std::string path) {
+    std::vector<std::string> out;
+    DIR *dir;
+    struct dirent *ent;
+    if ((dir = opendir (path.c_str())) != NULL) {
+        /* record all the files and directories within directory */
+        while ((ent = readdir (dir)) != NULL) {
+            out.push_back(ent->d_name);
+        }
+        closedir (dir);
+        /* pop off '.' and '..' */
+        assert(out.size() >= 2);
+        std::copy(out.begin()+2, out.end(), out.begin());
+        out.resize(out.size()-2);
+    } else {
+        /* could not open directory */
+        perror ("");
+    }
+    return out;
+}
 std::string getFileContents(std::string filepath) {
     std::ifstream in(filepath, std::ios::in | std::ios::binary);
     std::string output;
@@ -97,6 +121,9 @@ std::string getFileContents(std::string filepath) {
         in.close();
     }
     return output;
+}
+std::string getMCFunction(std::string packname, std::string namesp, std::string function) {
+    return getFileContents(makeFunctionsPath(packname, namesp) + "/" + function + FOO_EXT);
 }
 
 /***************************************|
