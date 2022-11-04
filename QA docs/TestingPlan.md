@@ -1,6 +1,6 @@
 # Testing Plan
 ## MCLang 0.3.4-alpha
-### Created: Adam Cassidy, Brendan van Diest, Ethan Worth, 10/26/2022
+### Created: Adam Callahan, Brendan van Diest, Ethan Worth, 10/26/2022
 
 <br/>
 
