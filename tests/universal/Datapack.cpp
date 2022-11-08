@@ -68,29 +68,29 @@
     //  optional -n argument for namespace
     bool Datapack::build(std::string n) {
         // make file
-        std::ofstream f(getSourcePath());
+        std::ofstream f(_makeSourcePath());
         if(!f.is_open())
-            throw std::runtime_error("Could not create file: " + getSourcePath());
+            throw std::runtime_error("Could not create file: " + _makeSourcePath());
         
         // pass text
         f << generateText();
         f.close();
 
         // cleanup previous build
-        cleanupBuild();
+        _cleanupBuildFiles();
 
         // run build
-        rez = BuildResult(buildFile(getSourcePath(), getCompiledPath(), n), n);
+        rez = BuildResult(buildFile(_makeSourcePath(), _makeCompiledPath(), n), n);
 
         // return success
         return rez.code == 0;
     }
 
     // cleans up a given build
-    void Datapack::cleanupBuild() {
+    void Datapack::_cleanupBuildFiles() {
         if(rez.code != -1) {
             // clean up files
-            cleanupBuildFiles(getSourcePath(), getCompiledPath());
+            cleanupBuildFiles(_makeSourcePath(), _makeCompiledPath());
             
             // mark as cleaned
             rez.code = -1;

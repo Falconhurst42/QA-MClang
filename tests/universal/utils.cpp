@@ -36,7 +36,7 @@ inline std::string makeCompiledPath(std::string packname) {
     return DATA_PATH + packname;
 }
 // get location of function .json files (for load, tick)
-inline std::string makeTagsPath(std::string packname, std::string namesp) {
+inline std::string makeTagsPath(std::string packname) {
     return makeCompiledPath(packname) + "/data/minecraft/tags/functions";
 }
 // get location of generated `.mcfunction` files
@@ -53,22 +53,23 @@ inline std::string makeFunctionsPath(std::string packname, std::string namesp) {
 // global struct for sys/stat.h
 struct stat stat_info;
 
-// Checks if the given path points to a valid file
-// https://stackoverflow.com/a/18101042
-inline bool fileExists(std::string path) {
-    if( stat( path.c_str(), &stat_info ) != 0 ) // check access
-        return false;
-    else if( stat_info.st_mode & S_IFMT )  // S_IFMT() ??might not?? exist on my windows 
-        return true;
-    else
-        return false;
-}
 // Checks if the given path points to a valid directory
 // https://stackoverflow.com/a/18101042
 bool directoryExists(std::string path) {
     if( stat( path.c_str(), &stat_info ) != 0 ) // check access
         return false;
     else if( stat_info.st_mode & S_IFDIR )  // S_ISDIR() doesn't exist on my windows 
+        return true;
+    else
+        return false;
+}
+
+// Checks if the given path points to a valid file
+// https://stackoverflow.com/a/18101042
+inline bool fileExists(std::string path) {
+    if( stat( path.c_str(), &stat_info ) != 0 ) // check access
+        return false;
+    else if( stat_info.st_mode & S_IFMT )  // S_IFMT() ??might not?? exist on my windows 
         return true;
     else
         return false;
@@ -96,7 +97,7 @@ std::vector<std::string> getDirectoryContents(std::string path) {
     return out;
 }
 
-
+// if file does not exist, returns ""
 std::string getFileContents(std::string filepath) {
     std::ifstream in(filepath, std::ios::in | std::ios::binary);
     std::string out;
@@ -117,10 +118,34 @@ std::string getFileContents(std::string filepath) {
     return out;
 }
 
+/***************************************|
+|                                       |
+|              MC Functions             |
+|                                       |
+|***************************************/
+    bool MCFunctionExists(std::string packname, std::string namesp, std::string function) {
+        return fileExists(makeFunctionsPath(packname, namesp) + "/" + function + FOO_EXT);
+    }
 
-std::string getMCFunction(std::string packname, std::string namesp, std::string function) {
-    return getFileContents(makeFunctionsPath(packname, namesp) + "/" + function + FOO_EXT);
-}
+    std::vector<std::string> listMCFunctionNames(std::string packname, std::string namesp) {
+        std::vector<std::string> out = getDirectoryContents(makeFunctionsPath(packname, namesp));
+        for(std::string& foo : out)
+            foo = foo.substr(foo.find(FOO_EXT, 0));
+        return out;
+    }
+
+    std::string getMCFunction(std::string packname, std::string namesp, std::string function) {
+        return getFileContents(makeFunctionsPath(packname, namesp) + "/" + function + FOO_EXT);
+    }
+
+    bool anyFunctionContain(std::string packname, std::string namesp, std::string content) {
+        // range-based forloop will only call the function once
+        // for each mcfunction
+        for(std::string function : listMCFunctionNames(packname, namesp))
+            if(inStr(getMCFunction(packname, namesp, function), content))
+                return true;
+        return false;
+    }
 
 /***************************************|
 |                                       |

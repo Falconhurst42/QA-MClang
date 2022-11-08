@@ -7,6 +7,12 @@
 #include <stdexcept>
 
 
+/*
+Dev notes:
+ - Util-mirrors will be named as `_nameOfMirroredFunction(args)`
+
+*/
+
 /***************************************|
 |                                       |
 |            DATAPACK CLASS             |
@@ -94,25 +100,60 @@ struct Datapack {
     
 /***************************************|
 |                                       |
-|           Path Generators             |
+|             Util Mirrors              |
 |                                       |
 |***************************************/
+    /***************************************|
+    |                                       |
+    |           Path Generators             |
+    |                                       |
+    |***************************************/
     // get location of `.mcl` file
-    std::string getSourcePath() const {
+    std::string _makeSourcePath() const {
         return makeSourcePath(name);
     }
     // get location of datapack
-    std::string getCompiledPath() const {
+    std::string _makeCompiledPath() const {
         return makeCompiledPath(name);
     }
     // get location of function .json files (for load, tick)
-    std::string getTagsPath() const {
-        return makeTagsPath(name, getPrimaryNamespace());
+    std::string _makeTagsPath() const {
+        return makeTagsPath(name);
     }
     // get location of generated `.mcfunction` files
-    std::string getFunctionsPath() const {
+    std::string _makeFunctionsPath() const {
         return makeFunctionsPath(name, getPrimaryNamespace());
     }
+    
+    /***************************************|
+    |                                       |
+    |              MC Functions             |
+    |                                       |
+    |***************************************/
+    inline bool _MCFunctionExists(std::string function) const {
+        return MCFunctionExists(name, getPrimaryNamespace(), function);
+    }
+
+    // lists the function names, not paths, no .mcfunction
+    inline std::vector<std::string> _listMCFunctionNames() const {
+        return listMCFunctionNames(name, getPrimaryNamespace());
+    }
+
+    inline std::string _getMCFunction(std::string function) const {
+        return getMCFunction(name, getPrimaryNamespace(), function);
+    }
+
+    inline bool _anyFunctionContain(std::string content) const {
+        return anyFunctionContain(name, getPrimaryNamespace(), content);
+    }
+
+    /***************************************|
+    |                                       |
+    |                Cleanup                |
+    |                                       |
+    |***************************************/
+    // cleans up a given build
+    void _cleanupBuildFiles();
 
 /***************************************|
 |                                       |
@@ -126,16 +167,13 @@ struct Datapack {
     //  optional -n argument for namespace
     bool build(std::string n = NO_NAMESPACE);
 
-    // cleans up a given build
-    void cleanupBuild();
-
 /***************************************|
 |                                       |
 |              Destructor               |
 |                                       |
 |***************************************/
     ~Datapack() {
-        cleanupBuild();
+        _cleanupBuildFiles();
     }
 };
 

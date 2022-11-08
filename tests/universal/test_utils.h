@@ -17,7 +17,7 @@ void VERIFY_GOOD_BUILD(const Datapack& src) {
     EXPECT_EQ(src.rez.output, "");
 
     // verify file structure
-    const std::string BASE_PATH = src.getCompiledPath(),
+    const std::string BASE_PATH = src._makeCompiledPath(),
                       NAMES = src.getPrimaryNamespace();
     EXPECT_TRUE(directoryExists(BASE_PATH));
     EXPECT_TRUE(directoryExists(BASE_PATH + "/data"));
@@ -27,10 +27,11 @@ void VERIFY_GOOD_BUILD(const Datapack& src) {
     EXPECT_TRUE(fileExists(BASE_PATH + "/pack.mcmeta"));
 
     // verify function files are created
-    const std::string FUNCT_PATH = src.getFunctionsPath();
-    const std::string TAG_PATH = src.getTagsPath();
+    const std::string FUNCT_PATH = src._makeFunctionsPath();
+    const std::string TAG_PATH = src._makeTagsPath();
     for(const Datapack::Function& f : src.foos) {
-        EXPECT_TRUE(fileExists(FUNCT_PATH + "/" + f.name + ".mcfunction"));
+        EXPECT_TRUE(src._MCFunctionExists(f.name));
+        // if f.name is in TAGGED_FUNCT_NAMES...
         if(std::find(TAGGED_FUNCT_NAMES.cbegin(), TAGGED_FUNCT_NAMES.cend(), f.name) != TAGGED_FUNCT_NAMES.cend()) {
             // check for file
             EXPECT_TRUE(fileExists(TAG_PATH + "/" + f.name + ".json"));
@@ -64,7 +65,7 @@ void VERIFY_BAD_BUILD(const Datapack& src, const std::string& err = "") {
         EXPECT_TRUE(inStr(src.rez.output, err));
 
     // verify file structure
-    const std::string BASE_PATH = src.getCompiledPath();
+    const std::string BASE_PATH = src._makeCompiledPath();
     EXPECT_FALSE(directoryExists(BASE_PATH));
 }
 

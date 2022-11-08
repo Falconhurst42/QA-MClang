@@ -44,7 +44,7 @@ inline std::string makeSourcePath(std::string filename);
 inline std::string makeCompiledPath(std::string packname);
 
 // get location of function .json files (for load, tick)
-inline std::string makeTagsPath(std::string packname, std::string namesp);
+inline std::string makeTagsPath(std::string packname);
 
 // get location of generated `.mcfunction` files
 inline std::string makeFunctionsPath(std::string packname, std::string namesp);
@@ -55,20 +55,32 @@ inline std::string makeFunctionsPath(std::string packname, std::string namesp);
 |                                       |
 |***************************************/
 
-// Checks if the given path points to a valid file
-// https://stackoverflow.com/a/18101042
-inline bool fileExists(std::string path);
-
 // Checks if the given path points to a valid directory
 // https://stackoverflow.com/a/18101042
 bool directoryExists(std::string path);
+
+// Checks if the given path points to a valid file
+// https://stackoverflow.com/a/18101042
+bool fileExists(std::string path);
 
 // using Unix `dirent.h` per https://stackoverflow.com/a/612176
 std::vector<std::string> getDirectoryContents(std::string path);
 
 std::string getFileContents(std::string filepath);
 
-inline std::string getMCFunction(std::string packname, std::string namesp, std::string function);
+    /***************************************|
+    |                                       |
+    |              MC Functions             |
+    |                                       |
+    |***************************************/
+    inline bool MCFunctionExists(std::string packname, std::string namesp, std::string function);
+
+    // lists the function names, not paths, no .mcfunction
+    inline std::vector<std::string> listMCFunctionNames(std::string packname, std::string namesp);
+
+    inline std::string getMCFunction(std::string packname, std::string namesp, std::string function);
+
+    bool anyFunctionContain(std::string packname, std::string namesp, std::string content);
 
 /***************************************|
 |                                       |
