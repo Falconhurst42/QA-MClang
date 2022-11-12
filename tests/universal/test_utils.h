@@ -30,13 +30,13 @@ void VERIFY_GOOD_BUILD(const Datapack& src) {
     const std::string FUNCT_PATH = src._makeFunctionsPath();
     const std::string TAG_PATH = src._makeTagsPath();
     for(const Datapack::Function& f : src.foos) {
-        EXPECT_TRUE(src._MCFunctionExists(f.name));
+        EXPECT_TRUE(src._MCFunctionExists(f.getFormattedName()));
         // if f.name is in TAGGED_FUNCT_NAMES...
-        if(std::find(TAGGED_FUNCT_NAMES.cbegin(), TAGGED_FUNCT_NAMES.cend(), f.name) != TAGGED_FUNCT_NAMES.cend()) {
+        if(std::find(TAGGED_FUNCT_NAMES.cbegin(), TAGGED_FUNCT_NAMES.cend(), f.getFormattedName()) != TAGGED_FUNCT_NAMES.cend()) {
             // check for file
-            EXPECT_TRUE(fileExists(TAG_PATH + "/" + f.name + ".json"));
+            EXPECT_TRUE(fileExists(TAG_PATH + "/" + f.getFormattedName() + ".json"));
             // check file contents
-            EXPECT_EQ(getFileContents(TAG_PATH + "/" + f.name + ".json"), "{\"values\":[\"" + NAMES + ":" + f.name + "\"]}");
+            EXPECT_EQ(getFileContents(TAG_PATH + "/" + f.getFormattedName() + ".json"), "{\"values\":[\"" + NAMES + ":" + f.getFormattedName() + "\"]}");
         }
     }
 

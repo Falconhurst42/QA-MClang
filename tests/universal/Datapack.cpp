@@ -24,6 +24,17 @@
         out += ") {\n" + body + "\n}";
         return out;
     }
+
+    std::string Datapack::Function::getFormattedName() const {
+        std::string out(name);
+        for(std::string::iterator it = out.begin(); it != out.end(); it++) {
+            if(*it >= 'A' && *it <= 'Z') {
+                *it -= 'A' - 'a';
+                it = ++out.insert(it, '.');
+            }
+        }
+        return out;
+    }
     
 /***************************************|
 |                                       |

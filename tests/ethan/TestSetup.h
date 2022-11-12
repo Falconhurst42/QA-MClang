@@ -32,6 +32,9 @@ const Datapack::Namespace TEST_NAMESPACE("gtest");
 
 const Datapack HELLO_FILE = {
     (std::vector<Datapack::Function>){ HELLO_WORLD }
+}, NI_TICK_LOAD_FILE = {
+    (std::vector<Datapack::Function>){ LOAD_N_I, TICK_N_I },
+    (std::vector<Datapack::Variable>){ N_VAR, I_VAR }
 };
 
 #endif

@@ -6,13 +6,53 @@
 
 /***************************************|
 |                                       |
+|             Name Casing               |
+|                                       |
+|***************************************/
+
+TEST(Functions, CamelCaseName) {
+    Datapack src(HELLO_FILE);
+    src.name = "VerifyBuild_CamelCaseName";
+    src.getFoo("hello_world").name = "helloWorld";
+    src.build();
+    EXPECT_TRUE(src._MCFunctionExists("hello.world"));
+    VERIFY_GOOD_BUILD(src);
+
+    // built files cleaned up by destructor when src falls out of scope
+}
+
+TEST(Functions, PascalCaseName) {
+    Datapack src(HELLO_FILE);
+    src.name = "VerifyBuild_CamelCaseName";
+    src.getFoo("hello_world").name = "HelloWorld";
+    src.build();
+    EXPECT_TRUE(src._MCFunctionExists(".hello.world"));
+    VERIFY_GOOD_BUILD(src);
+
+    // built files cleaned up by destructor when src falls out of scope
+}
+
+TEST(Functions, UpperCaseName) {
+    Datapack src(HELLO_FILE);
+    src.name = "VerifyBuild_CamelCaseName";
+    src.getFoo("hello_world").name = "HELLO_WORLD";
+    src.build();
+    EXPECT_TRUE(src._MCFunctionExists(".h.e.l.l.o_.w.o.r.l.d"));
+    VERIFY_GOOD_BUILD(src);
+
+    // built files cleaned up by destructor when src falls out of scope
+}
+
+/***************************************|
+|                                       |
 |              Tick/Load                |
 |                                       |
 |***************************************/
 
 TEST(Functions, LoadNI) {
-    Datapack src((std::vector<Datapack::Function>){ LOAD_N_I }, (std::vector<Datapack::Variable>){ N_VAR, I_VAR });
+    Datapack src(NI_TICK_LOAD_FILE);
     src.name = "VerifyBuild_TickLoadNI";
+    src.dropFoo("tick");
     src.build();
     VERIFY_GOOD_BUILD(src);
 
@@ -20,8 +60,11 @@ TEST(Functions, LoadNI) {
 }
 
 TEST(Functions, LoadNI_NoVars) {
-    Datapack src((std::vector<Datapack::Function>){ LOAD_N_I });
+    Datapack src(NI_TICK_LOAD_FILE);
     src.name = "VerifyBuild_TickLoadNI";
+    src.dropFoo("tick");
+    src.dropVar("n");
+    src.dropVar("i");
     src.build();
     VERIFY_BAD_BUILD(src, "Use of uninitialized variable");
 
@@ -29,8 +72,9 @@ TEST(Functions, LoadNI_NoVars) {
 }
 
 TEST(Functions, TickNI) {
-    Datapack src((std::vector<Datapack::Function>){ TICK_N_I }, (std::vector<Datapack::Variable>){ N_VAR, I_VAR });
+    Datapack src(NI_TICK_LOAD_FILE);
     src.name = "VerifyBuild_TickLoadNI";
+    src.dropFoo("load");
     src.build();
     VERIFY_GOOD_BUILD(src);
 
@@ -38,8 +82,11 @@ TEST(Functions, TickNI) {
 }
 
 TEST(Functions, TickNI_NoVars) {
-    Datapack src((std::vector<Datapack::Function>){ TICK_N_I });
+    Datapack src(NI_TICK_LOAD_FILE);
     src.name = "VerifyBuild_TickLoadNI";
+    src.dropFoo("load");
+    src.dropVar("n");
+    src.dropVar("i");
     src.build();
     VERIFY_BAD_BUILD(src, "Use of uninitialized variable");
 
@@ -47,19 +94,10 @@ TEST(Functions, TickNI_NoVars) {
 }
 
 TEST(Functions, TickLoadNI) {
-    Datapack src((std::vector<Datapack::Function>){ TICK_N_I, LOAD_N_I }, (std::vector<Datapack::Variable>){ N_VAR, I_VAR });
+    Datapack src(NI_TICK_LOAD_FILE);
     src.name = "VerifyBuild_TickLoadNI";
     src.build();
     VERIFY_GOOD_BUILD(src);
-
-    // built files cleaned up by destructor when src falls out of scope
-}
-
-TEST(Functions, TickLoadNI_NoVars) {
-    Datapack src((std::vector<Datapack::Function>){ TICK_N_I, LOAD_N_I });
-    src.name = "VerifyBuild_TickLoadNI";
-    src.build();
-    VERIFY_BAD_BUILD(src, "Use of uninitialized variable");
 
     // built files cleaned up by destructor when src falls out of scope
 }

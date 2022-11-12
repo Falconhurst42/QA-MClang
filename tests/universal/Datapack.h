@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 #include <stdexcept>
-
+#include <algorithm>
 
 /*
 Dev notes:
@@ -39,6 +39,8 @@ struct Datapack {
             rtype(rt), name(na), args(ar), body(bo) {}
 
         std::string getText() const;
+
+        std::string getFormattedName() const;
     };
 
     struct Namespace {
@@ -87,7 +89,28 @@ struct Datapack {
             rez("", -1, NO_NAMESPACE) {
                 rez.code = -1;
             }
-    
+
+/***************************************|
+|                                       |
+|          Member Access/Edit           |
+|                                       |
+|***************************************/
+Function& getFoo(std::string name) {
+    return *(std::find_if(foos.begin(), foos.end(), [name](Function f){ return f.name == name; }));
+}
+
+Variable& getVar(std::string name) {
+    return *(std::find_if(vars.begin(), vars.end(), [name](Variable v){ return v.name == name; }));
+}
+
+void dropFoo(std::string name) {
+    foos.erase(std::find_if(foos.begin(), foos.end(), [name](Function f){ return f.name == name; }));
+}
+
+void dropVar(std::string name) {
+    vars.erase(std::find_if(vars.begin(), vars.end(), [name](Variable v){ return v.name == name; }));
+}
+
 /***************************************|
 |                                       |
 |         Parsing & Generation          |
