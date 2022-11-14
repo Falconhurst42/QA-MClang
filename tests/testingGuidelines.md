@@ -15,6 +15,8 @@
    - For examples of testing using this system, check out existing subfolders from other users
  - NOTE: Git has been finicky with tracking files in testing subfolders, be careful when pushing to ensure all your files are being committed
 
+`If you get an error running make for your gTests that references -lThreads::Threads, you can fix it by deleting " -lThreads::Threads" from end of CMakeFiles/runTests.dir/link.txt`
+
 # Standard Practices
  - The `tests/universal/utils.h` defines certain default paths/names in the `Params` section
  - ### Filepaths

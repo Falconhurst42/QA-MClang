@@ -35,6 +35,10 @@ inline std::string makeSourcePath(std::string filename) {
 inline std::string makeCompiledPath(std::string packname) {
     return DATA_PATH + packname;
 }
+// get location of python
+inline std::string makePythonPath(std::string packname) {
+    return PYTHON_PATH + packname;
+}
 // get location of function .json files (for load, tick)
 inline std::string makeTagsPath(std::string packname) {
     return makeCompiledPath(packname) + "/data/minecraft/tags/functions";

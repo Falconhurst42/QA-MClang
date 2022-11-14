@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include "../universal/Datapack.h"
+#include "../universal/PackFiles.h"
 #include "../universal/test_utils.h"
 #include "../universal/utils.h"
 #include "TestSetup.h"
@@ -12,12 +13,18 @@
 |***************************************/
 
 TEST(BuildBasics, HelloWorld) {
-    Datapack src(HELLO_FILE);
+    /*Datapack src(HELLO_FILE);
     src.name = "VerifyBuild_HelloWorld";
     src.build();
-    VERIFY_GOOD_BUILD(src);
+    VERIFY_GOOD_BUILD(src);*/
+    Datapack src(HELLO_FILE);
+    src.name = "VerifyBuild_HelloWorld";
+    PackFiles pf(src);
+    pf.VERIFY_GOOD_BUILD();
 
-    // built files cleaned up by destructor when src falls out of scope
+    // built files cleaned up by destructor when pf falls out of scope
+    system((std::string("cp -r ") + src._makeCompiledPath() + " " + src._makePythonPath()).c_str());
+    system("python3 standin.py");
 }
 
 /***************************************|

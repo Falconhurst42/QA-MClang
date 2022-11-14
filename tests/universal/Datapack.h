@@ -46,7 +46,7 @@ struct Datapack {
     struct Namespace {
         std::string space;
 
-        Namespace(std::string sp) : space(sp) {}
+        Namespace(std::string sp = NO_NAMESPACE) : space(sp) {}
 
         std::string getNamespacer() const {
             return "namespace " + space + ";";
@@ -59,7 +59,7 @@ struct Datapack {
         std::string dash_n; // necessary to handle -n args
 
         BuildResult(CommandResult cr, std::string dn = NO_NAMESPACE) : CommandResult(cr), dash_n(dn) {}
-        BuildResult(std::string ou, int co, std::string dn = NO_NAMESPACE) : CommandResult(ou, co), dash_n(dn) {}
+        BuildResult(std::string ou = "", int co = -1, std::string dn = NO_NAMESPACE) : CommandResult(ou, co), dash_n(dn) {}
     };
 
 /***************************************|
@@ -85,8 +85,7 @@ struct Datapack {
             name(DEF_FILENAME),
             space(sp),
             foos(fs),
-            vars(vs),
-            rez("", -1, NO_NAMESPACE) {
+            vars(vs) {
                 rez.code = -1;
             }
 
@@ -138,6 +137,10 @@ void dropVar(std::string name) {
     // get location of datapack
     std::string _makeCompiledPath() const {
         return makeCompiledPath(name);
+    }
+    // get location of python
+    std::string _makePythonPath() const {
+        return makePythonPath(name);
     }
     // get location of function .json files (for load, tick)
     std::string _makeTagsPath() const {
