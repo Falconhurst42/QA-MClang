@@ -17,6 +17,7 @@
 #include <cassert>
 #include <sys/stat.h>
 #include <dirent.h>
+#include <chrono>
 
 /***************************************|
 |                                       |
@@ -26,12 +27,14 @@
 const std::string DEF_FILENAME = "source";
 const std::string SRC_EXT = ".mcl",
                   FOO_EXT = ".mcfunction",
+                  PYTHON_EXT = ".txt",
                   SOURCE_PATH = "../files/sourcefiles/",
                   DATA_PATH = "../files/datafiles/",
                   PYTHON_PATH = "../files/python/";
 const std::string NO_NAMESPACE = "",
                   DEF_NAMESPACE = "dp";
 const std::vector<std::string> TAGGED_FUNCT_NAMES = {"load", "tick"};
+const std::chrono::milliseconds WAIT_SLEEP_TIME = std::chrono::milliseconds(300);
 
 /***************************************|
 |                                       |
@@ -43,6 +46,9 @@ inline std::string makeSourcePath(std::string filename);
 
 // get location of datapack
 inline std::string makeCompiledPath(std::string packname);
+
+// get location of python
+inline std::string makePythonPath(std::string packname);
 
 // get location of function .json files (for load, tick)
 inline std::string makeTagsPath(std::string packname);
@@ -82,6 +88,22 @@ std::string getFileContents(std::string filepath);
     inline std::string getMCFunction(std::string packname, std::string namesp, std::string function);
 
     bool anyFunctionContain(std::string packname, std::string namesp, std::string content);
+    
+    /***************************************|
+    |                                       |
+    |            Python Interface           |
+    |                                       |
+    |***************************************/
+    // move pack to python folder to be handled by Python script
+    inline void pythonizePack(std::string name);
+    //system((std::string("cp -r ") + pf._makeCompiledPath() + " " + pf._makePythonPath()).c_str());
+
+    // await python output for pack with given name
+    inline std::string awaitPythonOutput(std::string name);
+
+    // remove python output for pack with given name
+    inline void cleanupPythonFiles(std::string name);
+    //system((std::string("rm ") + makePythonPath(python_packs["HelloWorld"].name + ".txt")).c_str());
 
 /***************************************|
 |                                       |

@@ -37,6 +37,10 @@ struct PackFiles {
     std::string _makeCompiledPath() const {
         return makeCompiledPath(name);
     }
+    // get location of datapack
+    std::string _makePythonPath() const {
+        return makePythonPath(name);
+    }
     // get location of function .json files (for load, tick)
     std::string _makeTagsPath() const {
         return makeTagsPath(name);

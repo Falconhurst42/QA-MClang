@@ -3,11 +3,12 @@
 #include "Functions.cpp"
 #include "Namespacing.cpp"
 #include "PythonCleanup.cpp"
-//    <pack_name,  pack_files>
-// map<std::string, PackFiles> python_packs // outstanding pacakfiles which are being processed by python
-
+#include "PythonSetup.h"
 
 int main(int argc, char **argv) {
+    pythonStart();
     testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
+    int rez = RUN_ALL_TESTS();
+    pythonCleanup();
+    return rez;
 }

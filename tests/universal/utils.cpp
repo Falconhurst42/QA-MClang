@@ -16,6 +16,8 @@
 #include <cassert>
 #include <sys/stat.h>
 #include <dirent.h>
+#include <chrono>
+#include <thread>
 
 /***************************************|
 |                                       |
@@ -122,6 +124,31 @@ std::string getFileContents(std::string filepath) {
     return out;
 }
 
+// delays and waits until file exists
+std::string awaitFileContents(std::string filepath) {
+    std::ifstream in(filepath, std::ios::in | std::ios::binary);
+    std::string out;
+ 
+    // loop until file opens
+    while (!in.is_open()) {
+        // sleep for .3s
+        std::this_thread::sleep_for(WAIT_SLEEP_TIME);
+        in.open(filepath, std::ios::in | std::ios::binary);
+    }
+    
+    // resize output string to proper size
+    in.seekg(0, std::ios::end);
+    out.reserve(in.tellg());
+    in.seekg(0, std::ios::beg);
+
+    // copy from file to string
+    std::copy((std::istreambuf_iterator<char>(in)), std::istreambuf_iterator<char>(), std::back_inserter(out));
+
+    // close file
+    in.close();
+    return out;
+}
+
 /***************************************|
 |                                       |
 |              MC Functions             |
@@ -149,6 +176,23 @@ std::string getFileContents(std::string filepath) {
             if(inStr(getMCFunction(packname, namesp, function), content))
                 return true;
         return false;
+    } 
+    
+/***************************************|
+|                                       |
+|            Python Interface           |
+|                                       |
+|***************************************/
+    void pythonizePack(std::string name) {
+        system((std::string("cp -r ") + makeCompiledPath(name) + " " + makePythonPath(name)).c_str());
+    }
+
+    std::string awaitPythonOutput(std::string name) {
+        return awaitFileContents(makePythonPath(name + PYTHON_EXT));
+    }
+
+    void cleanupPythonFiles(std::string name) {
+        system((std::string("rm ") + makePythonPath(name + PYTHON_EXT)).c_str());
     }
 
 /***************************************|

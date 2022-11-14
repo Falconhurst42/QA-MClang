@@ -172,6 +172,28 @@ void dropVar(std::string name) {
     inline bool _anyFunctionContain(std::string content) const {
         return anyFunctionContain(name, getPrimaryNamespace(), content);
     }
+    
+    /***************************************|
+    |                                       |
+    |            Python Interface           |
+    |                                       |
+    |***************************************/
+    // move pack to python folder to be handled by Python script
+    inline void _pythonizePack() {
+        pythonizePack(name);
+    }
+    //system((std::string("cp -r ") + _makeCompiledPath() + " " + _makePythonPath()).c_str());
+
+    // await python output for pack
+    inline std::string _awaitPythonOutput() {
+        return awaitPythonOutput(name);
+    }
+
+    // remove python output for pack
+    inline void _cleanupPythonFiles() {
+        cleanupPythonFiles(name);
+    }
+    //system((std::string("rm ") + makePythonPath(name + ".txt")).c_str());
 
     /***************************************|
     |                                       |

@@ -1,10 +1,15 @@
+#ifndef BB
+#define BB
+
 #include <gtest/gtest.h>
 #include "../universal/Datapack.h"
 #include "../universal/PackFiles.h"
 #include "../universal/test_utils.h"
 #include "../universal/utils.h"
 #include "TestSetup.h"
+#include "PythonSetup.h"
 #include <fstream>
+#include <thread>
 
 /***************************************|
 |                                       |
@@ -13,18 +18,14 @@
 |***************************************/
 
 TEST(BuildBasics, HelloWorld) {
-    /*Datapack src(HELLO_FILE);
-    src.name = "VerifyBuild_HelloWorld";
-    src.build();
-    VERIFY_GOOD_BUILD(src);*/
     Datapack src(HELLO_FILE);
     src.name = "VerifyBuild_HelloWorld";
     PackFiles pf(src);
     pf.VERIFY_GOOD_BUILD();
 
     // built files cleaned up by destructor when pf falls out of scope
-    system((std::string("cp -r ") + src._makeCompiledPath() + " " + src._makePythonPath()).c_str());
-    system("python3 standin.py");
+    python_packs["HelloWorld"] = src;
+    python_packs["HelloWorld"]._pythonizePack();
 }
 
 /***************************************|
@@ -47,3 +48,5 @@ TEST(BuildBasics, InvalidFile) {
     // cleanup files
     cleanupBuildFiles(makeSourcePath(name), makeCompiledPath(name));
 }
+
+#endif
