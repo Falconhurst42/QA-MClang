@@ -1,0 +1,2 @@
+This folder is used by testing utilities to temporarily store Datapack compiled files
+This file is a placeholder to ensure that git creates the folder in the respository (git will not sync empty folders)
