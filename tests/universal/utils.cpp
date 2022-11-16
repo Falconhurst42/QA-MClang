@@ -112,7 +112,7 @@ std::string getFileContents(std::string filepath) {
     if (in.is_open()) {
         // resize output string to proper size
         in.seekg(0, std::ios::end);
-        out.reserve(in.tellg());
+        out.reserve(static_cast<std::string::size_type>(in.tellg()));
         in.seekg(0, std::ios::beg);
     
         // copy from file to string
@@ -138,7 +138,7 @@ std::string awaitFileContents(std::string filepath) {
     
     // resize output string to proper size
     in.seekg(0, std::ios::end);
-    out.reserve(in.tellg());
+    out.reserve(static_cast<std::string::size_type>(in.tellg()));
     in.seekg(0, std::ios::beg);
 
     // copy from file to string

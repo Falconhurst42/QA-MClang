@@ -94,20 +94,20 @@ struct Datapack {
 |          Member Access/Edit           |
 |                                       |
 |***************************************/
-Function& getFoo(std::string name) {
-    return *(std::find_if(foos.begin(), foos.end(), [name](Function f){ return f.name == name; }));
+Function& getFoo(std::string _name) {
+    return *(std::find_if(foos.begin(), foos.end(), [_name](Function f){ return f.name == _name; }));
 }
 
-Variable& getVar(std::string name) {
-    return *(std::find_if(vars.begin(), vars.end(), [name](Variable v){ return v.name == name; }));
+Variable& getVar(std::string _name) {
+    return *(std::find_if(vars.begin(), vars.end(), [_name](Variable v){ return v.name == _name; }));
 }
 
-void dropFoo(std::string name) {
-    foos.erase(std::find_if(foos.begin(), foos.end(), [name](Function f){ return f.name == name; }));
+void dropFoo(std::string _name) {
+    foos.erase(std::find_if(foos.begin(), foos.end(), [_name](Function f){ return f.name == _name; }));
 }
 
-void dropVar(std::string name) {
-    vars.erase(std::find_if(vars.begin(), vars.end(), [name](Variable v){ return v.name == name; }));
+void dropVar(std::string _name) {
+    vars.erase(std::find_if(vars.begin(), vars.end(), [_name](Variable v){ return v.name == _name; }));
 }
 
 /***************************************|
@@ -156,20 +156,20 @@ void dropVar(std::string name) {
     |              MC Functions             |
     |                                       |
     |***************************************/
-    inline bool _MCFunctionExists(std::string function) const {
+    bool _MCFunctionExists(std::string function) const {
         return MCFunctionExists(name, getPrimaryNamespace(), function);
     }
 
     // lists the function names, not paths, no .mcfunction
-    inline std::vector<std::string> _listMCFunctionNames() const {
+    std::vector<std::string> _listMCFunctionNames() const {
         return listMCFunctionNames(name, getPrimaryNamespace());
     }
 
-    inline std::string _getMCFunction(std::string function) const {
+    std::string _getMCFunction(std::string function) const {
         return getMCFunction(name, getPrimaryNamespace(), function);
     }
 
-    inline bool _anyFunctionContain(std::string content) const {
+    bool _anyFunctionContain(std::string content) const {
         return anyFunctionContain(name, getPrimaryNamespace(), content);
     }
     
@@ -179,18 +179,18 @@ void dropVar(std::string name) {
     |                                       |
     |***************************************/
     // move pack to python folder to be handled by Python script
-    inline void _pythonizePack() {
+    void _pythonizePack() {
         pythonizePack(name);
     }
     //system((std::string("cp -r ") + _makeCompiledPath() + " " + _makePythonPath()).c_str());
 
     // await python output for pack
-    inline std::string _awaitPythonOutput() {
+    std::string _awaitPythonOutput() {
         return awaitPythonOutput(name);
     }
 
     // remove python output for pack
-    inline void _cleanupPythonFiles() {
+    void _cleanupPythonFiles() {
         cleanupPythonFiles(name);
     }
     //system((std::string("rm ") + makePythonPath(name + ".txt")).c_str());

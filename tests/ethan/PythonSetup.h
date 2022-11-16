@@ -7,10 +7,13 @@
 #include <map>
 #include <string>
 
+void pythonStart();
+void pythonCleanup();
 
 // names of outstanding packs which are being processed by python
 // <test_name, pack_name>
 std::map<std::string, Datapack> python_packs;
+// thread which runs python
 std::thread th;
 
 void pythonStart() {

@@ -6,6 +6,9 @@
 #include <vector>
 #include "../universal/Datapack.h"
 
+void VERIFY_GOOD_BUILD(const Datapack& scr);
+void VERIFY_BAD_BUILD(const Datapack& scr, const std::string& err = "");
+
 // verifies that file has built properly
 //  - with successful return code
 //  - without any output
@@ -57,12 +60,13 @@ void VERIFY_GOOD_BUILD(const Datapack& src) {
 //  - without successful return code
 //  - with output containing `err`
 //  - datapack folder not created
-void VERIFY_BAD_BUILD(const Datapack& src, const std::string& err = "") {
+void VERIFY_BAD_BUILD(const Datapack& src, const std::string& err) {
     // verify success code
     EXPECT_NE(src.rez.code, 0);
     // verify err in output
-    if(err != "")
+    if(err != "") {
         EXPECT_TRUE(inStr(src.rez.output, err));
+    }
 
     // verify file structure
     const std::string BASE_PATH = src._makeCompiledPath();

@@ -5,8 +5,8 @@
 //  saves command result to Rez
 //  places file at `makeSourcePath(name)`
 //  outputs datapack to `makeCompiledPath(name)`
-PackFiles::PackFiles(Datapack dp, std::string n) 
-    : dp(dp), 
+PackFiles::PackFiles(Datapack _dp, std::string n) 
+    : dp(_dp), 
     name(dp.name) {
     // make source file
     std::ofstream f(dp._makeSourcePath());
@@ -93,8 +93,9 @@ void PackFiles::VERIFY_BAD_BUILD(const Datapack& src, std::string err) const {
     // verify success code
     EXPECT_NE(src.rez.code, 0);
     // verify err in output
-    if(err != "")
+    if(err != "") {
         EXPECT_TRUE(inStr(src.rez.output, err));
+    }
 
     // verify file structure
     const std::string BASE_PATH = src._makeCompiledPath();

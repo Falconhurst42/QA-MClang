@@ -6,9 +6,9 @@
 #include <string>
 
 struct PackFiles {
+    Datapack dp;
     std::string name;
     Datapack::Namespace namesp;
-    Datapack dp;
     Datapack::BuildResult rez;
 
     // builds the Datapack into PackFiles
@@ -16,7 +16,7 @@ struct PackFiles {
     //  saves command result to Rez
     //  places file at `makeSourcePath(name)`
     //  outputs datapack to `makeCompiledPath(name)`
-    PackFiles(Datapack dp, std::string n = NO_NAMESPACE);
+    PackFiles(Datapack _dp, std::string n = NO_NAMESPACE);
 
 
 /***************************************|
@@ -54,20 +54,20 @@ struct PackFiles {
     |              MC Functions             |
     |                                       |
     |***************************************/
-    inline bool _MCFunctionExists(std::string function) const {
+    bool _MCFunctionExists(std::string function) const {
         return MCFunctionExists(name, namesp, function);
     }
 
     // lists the function names, not paths, no .mcfunction, just ["1", "2", "main", "tick", etc...]
-    inline std::vector<std::string> _listMCFunctionNames() const {
+    std::vector<std::string> _listMCFunctionNames() const {
         return listMCFunctionNames(name, namesp);
     }
 
-    inline std::string _getMCFunction(std::string function) const {
+    std::string _getMCFunction(std::string function) const {
         return getMCFunction(name, namesp, function);
     }
 
-    inline bool _anyFunctionContain(std::string content) const {
+    bool _anyFunctionContain(std::string content) const {
         return anyFunctionContain(name, namesp, content);
     }
 

@@ -42,19 +42,19 @@ const std::chrono::milliseconds WAIT_SLEEP_TIME = std::chrono::milliseconds(300)
 |                                       |
 |***************************************/
 // get location of `.mcl` file
-inline std::string makeSourcePath(std::string filename);
+std::string makeSourcePath(std::string filename);
 
 // get location of datapack
-inline std::string makeCompiledPath(std::string packname);
+std::string makeCompiledPath(std::string packname);
 
 // get location of python
-inline std::string makePythonPath(std::string packname);
+std::string makePythonPath(std::string packname);
 
 // get location of function .json files (for load, tick)
-inline std::string makeTagsPath(std::string packname);
+std::string makeTagsPath(std::string packname);
 
 // get location of generated `.mcfunction` files
-inline std::string makeFunctionsPath(std::string packname, std::string namesp);
+std::string makeFunctionsPath(std::string packname, std::string namesp);
 
 /***************************************|
 |                                       |
@@ -74,18 +74,19 @@ bool fileExists(std::string path);
 std::vector<std::string> getDirectoryContents(std::string path);
 
 std::string getFileContents(std::string filepath);
+std::string awaitFileContents(std::string filepath);
 
     /***************************************|
     |                                       |
     |              MC Functions             |
     |                                       |
     |***************************************/
-    inline bool MCFunctionExists(std::string packname, std::string namesp, std::string function);
+    bool MCFunctionExists(std::string packname, std::string namesp, std::string function);
 
     // lists the function names, not paths, no .mcfunction
-    inline std::vector<std::string> listMCFunctionNames(std::string packname, std::string namesp);
+    std::vector<std::string> listMCFunctionNames(std::string packname, std::string namesp);
 
-    inline std::string getMCFunction(std::string packname, std::string namesp, std::string function);
+    std::string getMCFunction(std::string packname, std::string namesp, std::string function);
 
     bool anyFunctionContain(std::string packname, std::string namesp, std::string content);
     
@@ -95,14 +96,14 @@ std::string getFileContents(std::string filepath);
     |                                       |
     |***************************************/
     // move pack to python folder to be handled by Python script
-    inline void pythonizePack(std::string name);
+    void pythonizePack(std::string name);
     //system((std::string("cp -r ") + pf._makeCompiledPath() + " " + pf._makePythonPath()).c_str());
 
     // await python output for pack with given name
-    inline std::string awaitPythonOutput(std::string name);
+    std::string awaitPythonOutput(std::string name);
 
     // remove python output for pack with given name
-    inline void cleanupPythonFiles(std::string name);
+    void cleanupPythonFiles(std::string name);
     //system((std::string("rm ") + makePythonPath(python_packs["HelloWorld"].name + ".txt")).c_str());
 
 /***************************************|
@@ -112,7 +113,7 @@ std::string getFileContents(std::string filepath);
 |***************************************/
 
 // checks if `src` string contains `search` string
-inline bool inStr(std::string src, std::string search);
+bool inStr(std::string src, std::string search);
 
 /***************************************|
 |                                       |
