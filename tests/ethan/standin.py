@@ -3,9 +3,18 @@ from time import sleep
 import json
 from shutil import rmtree, copytree
 
-PYTHON_DIR = "../files/python"
-END_FILE_NAME = "TESTS.DONE"
-MC_PATH = ""
+
+
+PYTHON_DIR = ""#"../files/python"
+END_FILE_NAME = ""#"TESTS.DONE"
+
+# set relevant configs from configs.json
+with open("../universal/configs.json", 'r') as file:
+    js_conts = json.load(file)
+    PYTHON_DIR = js_conts["PYTHON_PATH"]
+    END_FILE_NAME = js_conts["END_FILE_NAME"]
+
+MC_PATH = "/mnt/c/"
 
 def addPy(p):
     return PYTHON_DIR + '/' + p
@@ -55,10 +64,11 @@ if __name__ == "__main__":
         for pack in packs:
             # BEGIN **placeholder for pywinauto**
             # open pack files
+            # movePackFiles(pack)
             with open(addPy(pack) + '/' + "pack.mcmeta", 'r') as file:
                 js = json.load(file)
             # parse result
-            rez = str(js["pack"]["pack_format"])
+            rez = str(js["pack"]["pack_format"]) # rez == result of test (as string)
             # END **placeholder for pywinauto**
 
             # write output

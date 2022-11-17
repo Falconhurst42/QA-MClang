@@ -1,9 +1,9 @@
 #include <gtest/gtest.h>
+#include "PythonSetup.h"
 #include "BuildBasics.cpp"
 #include "Functions.cpp"
 #include "Namespacing.cpp"
 #include "PythonCleanup.cpp"
-#include "PythonSetup.h"
 
 int main(int argc, char **argv) {
     pythonStart();

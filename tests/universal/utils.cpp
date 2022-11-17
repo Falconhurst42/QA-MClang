@@ -18,37 +18,7 @@
 #include <dirent.h>
 #include <chrono>
 #include <thread>
-
-/***************************************|
-|                                       |
-|                Params                 |
-|                                       |
-|***************************************/
-/***************************************|
-|                                       |
-|            Path Generators            |
-|                                       |
-|***************************************/
-// get location of `.mcl` file
-inline std::string makeSourcePath(std::string filename) {
-    return SOURCE_PATH + filename + SRC_EXT;
-}
-// get location of datapack
-inline std::string makeCompiledPath(std::string packname) {
-    return DATA_PATH + packname;
-}
-// get location of python
-inline std::string makePythonPath(std::string packname) {
-    return PYTHON_PATH + packname;
-}
-// get location of function .json files (for load, tick)
-inline std::string makeTagsPath(std::string packname) {
-    return makeCompiledPath(packname) + "/data/minecraft/tags/functions";
-}
-// get location of generated `.mcfunction` files
-inline std::string makeFunctionsPath(std::string packname, std::string namesp) {
-    return makeCompiledPath(packname) + "/data/" + namesp + "/functions";
-}
+#include <ctype.h>
 
 /***************************************|
 |                                       |
@@ -132,7 +102,7 @@ std::string awaitFileContents(std::string filepath) {
     // loop until file opens
     while (!in.is_open()) {
         // sleep for .3s
-        std::this_thread::sleep_for(WAIT_SLEEP_TIME);
+        std::this_thread::sleep_for(WAIT_SLEEP_MS);
         in.open(filepath, std::ios::in | std::ios::binary);
     }
     
@@ -147,6 +117,105 @@ std::string awaitFileContents(std::string filepath) {
     // close file
     in.close();
     return out;
+}
+
+/***************************************|
+|                                       |
+|                Params                 |
+|                                       |
+|***************************************/
+size_t findNameAnchor(std::string name) {
+    std::string search = "\"" + name + "\":";
+    size_t i = CONFIG_CONTENTS.find(search);
+    if(i != std::string::npos)
+        i += search.size();
+    return i;
+}
+
+// does not handle escaped characters
+std::string getStringParam(std::string name) {
+    // find name anchor
+    size_t i = findNameAnchor(name);
+    // if anchor found
+    if(i != std::string::npos) {
+        // find start of string
+        i = CONFIG_CONTENTS.find("\"", i);
+        // substr to end of string
+        return CONFIG_CONTENTS.substr(i+1, CONFIG_CONTENTS.find("\"", i+1)-i-1);
+    }
+    // base case
+    return "";
+}
+
+// does not handle escaped characters
+std::vector<std::string> getStrVecParam(std::string name) {
+    std::vector<std::string> out;
+    // find name anchor
+    size_t i = findNameAnchor(name);
+    // if name anchor found
+    if(i != std::string::npos) {
+        // find list anchor
+        i = CONFIG_CONTENTS.find("[", i);
+        // substr list contents
+        std::string conts = CONFIG_CONTENTS.substr(i+1, CONFIG_CONTENTS.find("]", i+1)-i-1);
+        // iterate over strings
+        size_t j = 0;
+        // pre-find nex string start
+        i = conts.find("\"", j);
+        // while there is a next string start
+        while(i != std::string::npos) {
+            // find string end
+            j = conts.find("\"", i+1)+1;
+            // substr and push
+            out.push_back(conts.substr(i+1, j-i-2));
+            // find next str start
+            i = conts.find("\"", j);
+        }
+    }
+    // return output
+    return out;
+}
+
+uint64_t getUIntParam(std::string name) {
+    // find name anchor
+    size_t i = findNameAnchor(name);
+    // if anchor found
+    if(i != std::string::npos) {
+        // advance to digit
+        while(++i < CONFIG_CONTENTS.size() && !isdigit(CONFIG_CONTENTS[i]));
+        // if digit found
+        if(i < CONFIG_CONTENTS.size()) {
+            // substr and convert
+            return strtoull(CONFIG_CONTENTS.substr(i, CONFIG_CONTENTS.find("\n", i+1)-i).c_str(), nullptr, 0);
+        }
+    }
+    return 0;
+}
+
+/***************************************|
+|                                       |
+|            Path Generators            |
+|                                       |
+|***************************************/
+// get location of `.mcl` file
+inline std::string makeSourcePath(std::string filename) {
+    return SOURCE_PATH + filename + SRC_EXT;
+}
+// get location of datapack
+inline std::string makeCompiledPath(std::string packname) {
+    return DATA_PATH + packname;
+}
+// get location of python
+inline std::string makePythonPath(std::string packname) {
+    return PYTHON_PATH + packname;
+}
+// get location of function .json files (for load, tick)
+inline std::string makeTagsPath(std::string packname) {
+    return makeCompiledPath(packname) + "/data/minecraft/tags/functions";
+}
+// get location of generated `.mcfunction` files
+inline std::string makeFunctionsPath(std::string packname, std::string namesp) {
+    return makeCompiledPath(packname) + "/data/" + namesp + "/functions";
 }
 
 /***************************************|

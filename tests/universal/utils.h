@@ -19,42 +19,8 @@
 #include <dirent.h>
 #include <chrono>
 
-/***************************************|
-|                                       |
-|                Params                 |
-|                                       |
-|***************************************/
-const std::string DEF_FILENAME = "source";
-const std::string SRC_EXT = ".mcl",
-                  FOO_EXT = ".mcfunction",
-                  PYTHON_EXT = ".txt",
-                  SOURCE_PATH = "../files/sourcefiles/",
-                  DATA_PATH = "../files/datafiles/",
-                  PYTHON_PATH = "../files/python/";
-const std::string NO_NAMESPACE = "",
-                  DEF_NAMESPACE = "dp";
-const std::vector<std::string> TAGGED_FUNCT_NAMES = {"load", "tick"};
-const std::chrono::milliseconds WAIT_SLEEP_TIME = std::chrono::milliseconds(300);
 
-/***************************************|
-|                                       |
-|            Path Generators            |
-|                                       |
-|***************************************/
-// get location of `.mcl` file
-std::string makeSourcePath(std::string filename);
-
-// get location of datapack
-std::string makeCompiledPath(std::string packname);
-
-// get location of python
-std::string makePythonPath(std::string packname);
-
-// get location of function .json files (for load, tick)
-std::string makeTagsPath(std::string packname);
-
-// get location of generated `.mcfunction` files
-std::string makeFunctionsPath(std::string packname, std::string namesp);
+#include <stdio.h>
 
 /***************************************|
 |                                       |
@@ -75,6 +41,52 @@ std::vector<std::string> getDirectoryContents(std::string path);
 
 std::string getFileContents(std::string filepath);
 std::string awaitFileContents(std::string filepath);
+
+/***************************************|
+|                                       |
+|                Params                 |
+|                                       |
+|***************************************/
+
+const std::string CONFIG_PATH = "../universal/configs.json";
+const std::string CONFIG_CONTENTS = getFileContents(CONFIG_PATH);
+
+size_t findNameAnchor(std::string name);
+std::string getStringParam(std::string name);
+std::vector<std::string> getStrVecParam(std::string name);
+uint64_t getUIntParam(std::string name);
+
+const std::string SOURCE_PATH = getStringParam("SOURCE_PATH"),
+                  DATA_PATH = getStringParam("DATA_PATH"),
+                  PYTHON_PATH = getStringParam("PYTHON_PATH"),
+                  SRC_EXT = getStringParam("SRC_EXT"),
+                  FOO_EXT = getStringParam("FOO_EXT"),
+                  PYTHON_EXT = getStringParam("PYTHON_EXT");
+const std::string DEF_FILENAME = getStringParam("DEF_FILENAME"),
+                  NO_NAMESPACE = getStringParam("NO_NAMESPACE"),
+                  DEF_NAMESPACE = getStringParam("DEF_NAMESPACE");
+const std::vector<std::string> TAGGED_FUNCT_NAMES = getStrVecParam("TAGGED_FUNCT_NAMES");
+const std::chrono::milliseconds WAIT_SLEEP_MS = std::chrono::milliseconds(getUIntParam("WAIT_SLEEP_MS"));
+
+/***************************************|
+|                                       |
+|            Path Generators            |
+|                                       |
+|***************************************/
+// get location of `.mcl` file
+std::string makeSourcePath(std::string filename);
+
+// get location of datapack
+std::string makeCompiledPath(std::string packname);
+
+// get location of python
+std::string makePythonPath(std::string packname);
+
+// get location of function .json files (for load, tick)
+std::string makeTagsPath(std::string packname);
+
+// get location of generated `.mcfunction` files
+std::string makeFunctionsPath(std::string packname, std::string namesp);
 
     /***************************************|
     |                                       |

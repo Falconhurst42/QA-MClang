@@ -1,0 +1,14 @@
+{
+    "SOURCE_PATH": "../files/sourcefiles/",
+    "DATA_PATH": "../files/datafiles/",
+    "PYTHON_PATH": "../files/python/",
+    "SRC_EXT": ".mcl",
+    "FOO_EXT": ".mcfunction",
+    "PYTHON_EXT": ".txt",
+    "END_FILE_NAME": "TESTS.DONE",
+    "DEF_FILENAME": "source",
+    "NO_NAMESPACE": "",
+    "DEF_NAMESPACE": "dp",
+    "TAGGED_FUNCT_NAMES": ["load", "tick"],
+    "WAIT_SLEEP_MS": 300
+}
