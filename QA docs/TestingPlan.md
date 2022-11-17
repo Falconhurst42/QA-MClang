@@ -1,6 +1,9 @@
 # Testing Plan
 ## MCLang 0.3.4-alpha
-### Created: Adam Callahan, Brendan van Diest, Ethan Worth, 10/26/2022
+### Created 10/26/2022 by Adam Callahan, Brendan van Diest, Ethan Worth, 
+### Updated 11/16/2022 by Ethan Worth
+ - Specifiy pywinauto integration methodology under "How we are combining our tests"
+ - Added "Code Review" Section
 
 <br/>
 
@@ -16,6 +19,7 @@
  - ## What we are testing
  - ## What we are not testing
  - ## How we are combining our tests
+ - ## Code Review
  - ## Bug Handling
 
 <br/>
@@ -39,7 +43,7 @@ Automated tests for C++ and GTest, are to be compiled with g++ 9.3.0. As such, m
 All generic functions and classes (meant to be used in more than one test) should be placed in an appropriate header file in the `QA-MCLang/tests/universal`. Configuration constants and parameters should also be placed in these headers. However, instatiations of global *__objects__* for use in testing should be placed in a `.h` file in the *__tester's subfolder__*. 
 
 Header files should each begin with a descriptive header comment in the following format
-```cpp
+```
 // Filename.ext
 // Description
 //  cont...
@@ -160,7 +164,12 @@ Verifying that datapacks generate the desired effects when run in Minecraft is b
 # How we are combining our tests
 Currently GTest tests are being developed in separate folders for convenience to avoid with Git conflicts. However, a system must be developed to combine these disparate tests into a fully automated, unified test suite. This requires standardization of testing methods, as well as education into the use of git branches.
 
-Furthermore, the possiblity of using pywinauto to perform behavior verification in Minecraft raises questions about test integration. While it would be possible to launch Python and C++ programs from a central script (or even from wihtin each other), the logistics of integrating pywinauto functionality with individual GTests is complicated by the severe overhead of configuring a pywinauto session in Minecraft. Ideally, a single session could be used for multiple tests, but that would require running both Python and C++ concurrently and passing control dynamically, rather than one script simply calling the other and waiting for it to complete.
+Furthermore, we will be verifying that datapacks behave as expected in Minecraft using the Python library pywinauto. This functionality will be integrated with C++ by launching a Python script at the beginning of the GTest C++ files using a system command. The two programs will communicate ddata using files placed in a designated "Python" folder. Specifically, an individual GTests will move a compiled datapack into the python folder for pywinauto to process asynchronously. Pywinauto will run a standard test and output its results in a corresponding text file. The final GTest suite will consist of tests corresponding to each of the tests which called pywinauto. Each test will wait for pywinauto to create the corresponding output file and perform verification on the results. When all GTests are complete, C++ will create a final file which informs Python that it can terminate. As a rule, if C++ creates a file/folder in the python subfolder, Python will be the one to delete it once it has read and received the message (and vice versa).
+
+# Code Reviews
+A single unified, but cursory code review of the MCLang source code was completed on 11/11, which yielded some additional insight into the workings of the product. In this meeting, each group member pre-selected a nd presented interesting functions from the code base, and the group discussed the details and vulernabilities of each section. Further code review is encouraged as group members build out additional tests.
+
+Test case reviews will be completed on 11/20 and 12/4 to allow group members to review and comment on the test cases created by other group members. The goal of these reviews is to ensure a unified vision and quality across test suites and move towards a cohesive final product. Each review will consist of a candid report from each group member on the state and coverage of their tests, followed by a peer review of specific tests, and finally a discussion of future steps.
 
 <br/>
 
