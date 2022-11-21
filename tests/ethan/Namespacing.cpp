@@ -13,7 +13,7 @@
 // verifies that basic file builds with successful return code when provided -n arg
 TEST(Namespacing, DashN) { 
     Datapack src(HELLO_FILE);
-    src.name = "VerifyBuild_HelloWorld_DashN";
+    src.name = "Namespacing_DashN";
     src.build(TEST_NAMESPACE);
     VERIFY_GOOD_BUILD(src);
 
@@ -23,7 +23,7 @@ TEST(Namespacing, DashN) {
 // verifies that basic file with namespace builds with successful return code
 TEST(Namespacing, Namespaced) { 
     Datapack src(HELLO_FILE);
-    src.name = "VerifyBuild_HelloWorld_Namespaced";
+    src.name = "Namespacing_Namespaced";
     src.space = TEST_NAMESPACE;
     src.build();
     VERIFY_GOOD_BUILD(src);
@@ -34,7 +34,7 @@ TEST(Namespacing, Namespaced) {
 // verifies that basic file with namespace builds with successful return code when also given a concurring -n arg
 TEST(Namespacing, Namespaced_DashN) { 
     Datapack src(HELLO_FILE);
-    src.name = "VerifyBuild_HelloWorld_Namespaced_DashN";
+    src.name = "Namespacing_Namespaced_DashN";
     src.space = TEST_NAMESPACE;
     src.build(TEST_NAMESPACE);
     VERIFY_GOOD_BUILD(src);
@@ -45,7 +45,7 @@ TEST(Namespacing, Namespaced_DashN) {
 // verifies that basic file with namespace builds with successful return code when also given a conflicting -n arg
 TEST(Namespacing, Conflicting_Namespaced_DashN) { 
     Datapack src(HELLO_FILE);
-    src.name = "VerifyBuild_HelloWorld_Namespaced_DashNConflicting";
+    src.name = "Namespacing_Conflicting_Namespaced_DashN";
     src.space = TEST_NAMESPACE;
     src.build(TEST_NAMESPACE.space + "2");
     VERIFY_GOOD_BUILD(src);

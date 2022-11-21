@@ -19,13 +19,13 @@
 
 TEST(BuildBasics, HelloWorld) {
     Datapack src(HELLO_FILE);
-    src.name = "VerifyBuild_HelloWorld";
+    src.name = "BuildBasics_HelloWorld";
     PackFiles pf(src);
     pf.VERIFY_GOOD_BUILD();
 
     // built files cleaned up by destructor when pf falls out of scope
-    python_packs["HelloWorld"] = src;
-    python_packs["HelloWorld"]._pythonizePack();
+    python_packs["BuildBasics_HelloWorld"] = src;
+    python_packs["BuildBasics_HelloWorld"]._pythonizePack();
 }
 
 /***************************************|

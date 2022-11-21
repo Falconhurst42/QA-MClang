@@ -127,6 +127,8 @@ std::string makeFunctionsPath(std::string packname, std::string namesp);
 // checks if `src` string contains `search` string
 bool inStr(std::string src, std::string search);
 
+std::string thousandsSep(size_t n);
+
 /***************************************|
 |                                       |
 |           Execute Commands            |

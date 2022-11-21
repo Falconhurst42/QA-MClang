@@ -3,6 +3,8 @@
 #include "BuildBasics.cpp"
 #include "Functions.cpp"
 #include "Namespacing.cpp"
+
+// python cleanup must remain last suite
 #include "PythonCleanup.cpp"
 
 int main(int argc, char **argv) {

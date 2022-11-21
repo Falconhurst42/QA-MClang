@@ -7,9 +7,9 @@
 #include <fstream>
 #include <string>
 
-TEST(PythonCleanup, HelloWorld) {
-    std::string out = python_packs["HelloWorld"]._awaitPythonOutput();
+TEST(PythonCleanup, BuildBasics_HelloWorld) {
+    std::string out = python_packs["BuildBasics_HelloWorld"]._awaitPythonOutput();
     EXPECT_EQ(out, std::to_string(10));
-    python_packs["HelloWorld"]._cleanupPythonFiles();
-    python_packs.erase("HelloWorld");
+    python_packs["BuildBasics_HelloWorld"]._cleanupPythonFiles();
+    python_packs.erase("BuildBasics_HelloWorld");
 }

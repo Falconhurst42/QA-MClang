@@ -271,9 +271,30 @@ inline std::string makeFunctionsPath(std::string packname, std::string namesp) {
 |***************************************/
 
 // checks if `src` string contains `search` string
-inline bool inStr(std::string src, std::string search) {
+bool inStr(std::string src, std::string search) {
     return std::search(src.begin(), src.end(), search.begin(), search.end()) == src.end();
 }
+
+// my own jank implementation of pretty int printing
+std::string thousandsSep(size_t n) {
+    std::string out = std::to_string(n);
+    size_t count = 1;
+    n = out.size()-1;
+    while(n > 0) {
+        if(count % 3 == 0) {
+            count = 1;
+            out.insert(n, ",");
+            n--;
+            // prevent underflow
+            if(n == 0)
+                n++;
+        }
+        n--, count++;
+    }
+    return out;
+}
+
+//52165057
 
 /***************************************|
 |                                       |
