@@ -7,6 +7,8 @@
 #include <fstream>
 #include <string>
 
+// one test for every test that sent a pack to python
+
 TEST(PythonCleanup, BuildBasics_HelloWorld) {
     std::string out = python_packs["BuildBasics_HelloWorld"]._awaitPythonOutput();
     EXPECT_EQ(out, std::to_string(10));

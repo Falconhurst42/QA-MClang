@@ -7,15 +7,20 @@ from shutil import rmtree, copytree
 
 PYTHON_DIR = ""#"../files/python"
 END_FILE_NAME = ""#"TESTS.DONE"
+MC_EXE_PATH = ""#"/mnt/c/Program Files (x86)/Minecraft Launcher/MinecraftLauncher.exe"
+MC_DP_PATH = ""#
 
 # set relevant configs from configs.json
 with open("../universal/configs.json", 'r') as file:
     js_conts = json.load(file)
     PYTHON_DIR = js_conts["PYTHON_PATH"]
     END_FILE_NAME = js_conts["END_FILE_NAME"]
+    MC_EXE_PATH = js_conts["MC_EXE_PATH"]
+    MC_DP_PATH = js_conts["MC_DP_PATH"]
 
-MC_PATH = "/mnt/c/"
+# helper functions
 
+# takes in file name/path and gets path relative to python directory
 def addPy(p):
     return PYTHON_DIR + '/' + p
 
@@ -32,8 +37,8 @@ def cleanupPack(pack_name):
 def cleanupFile(f):
     os.remove(addPy(f))
 
-def movePackFiles(pack):
-    copytree(addPy(pack), MC_PATH)
+def copyPackFiles(pack):
+    copytree(addPy(pack), f"{MC_DP_PATH}/{pack}")
 
 if __name__ == "__main__":
     # pre-emptively try to remove done file
@@ -64,8 +69,8 @@ if __name__ == "__main__":
         for pack in packs:
             # BEGIN **placeholder for pywinauto**
             # open pack files
-            # movePackFiles(pack)
-            with open(addPy(pack) + '/' + "pack.mcmeta", 'r') as file:
+            copyPackFiles(pack)
+            with open(addPy(pack + '/' + "pack.mcmeta"), 'r') as file:
                 js = json.load(file)
             # parse result
             rez = str(js["pack"]["pack_format"]) # rez == result of test (as string)

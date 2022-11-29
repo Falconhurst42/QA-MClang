@@ -10,5 +10,7 @@
     "NO_NAMESPACE": "",
     "DEF_NAMESPACE": "dp",
     "TAGGED_FUNCT_NAMES": ["load", "tick"],
-    "WAIT_SLEEP_MS": 300
+    "WAIT_SLEEP_MS": 300,
+    "MC_EXE_PATH": "/mnt/c/Program Files (x86)/Minecraft Launcher/MinecraftLauncher.exe",
+    "MC_DP_PATH": "/mnt/c/Users/ethan/AppData/Roaming/.minecraft/saves/MCLang/datapacks"
 }
