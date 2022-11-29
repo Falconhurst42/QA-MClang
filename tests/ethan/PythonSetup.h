@@ -18,6 +18,8 @@ std::thread th;
 
 void pythonStart() {
     th = std::thread(system, "python3 standin.py");
+    // std::thread temp = std::thread(system, "python.exe C:/MCLang/standin.py");
+    // temp.join();
 }
 
 void pythonCleanup() {

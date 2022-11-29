@@ -4,7 +4,6 @@ import json
 from shutil import rmtree, copytree
 
 
-
 PYTHON_DIR = ""#"../files/python"
 END_FILE_NAME = ""#"TESTS.DONE"
 MC_EXE_PATH = ""#"/mnt/c/Program Files (x86)/Minecraft Launcher/MinecraftLauncher.exe"
@@ -38,7 +37,11 @@ def cleanupFile(f):
     os.remove(addPy(f))
 
 def copyPackFiles(pack):
-    copytree(addPy(pack), f"{MC_DP_PATH}/{pack}")
+    try:
+        copytree(addPy(pack), f"{MC_DP_PATH}/{pack}")
+    except:
+        rmtree(f"{MC_DP_PATH}/{pack}")
+        copytree(addPy(pack), f"{MC_DP_PATH}/{pack}")
 
 if __name__ == "__main__":
     # pre-emptively try to remove done file
