@@ -5,6 +5,10 @@
  - Specifiy pywinauto integration methodology under "How we are combining our tests"
  - Added "Code Review" Section
 
+# To Add?
+ - ## Product View (static analysis, code coverage)
+ - ## 
+
 <br/>
 
 # Table of Contents
@@ -18,6 +22,7 @@
  - ## Relevant Terms
  - ## What we are testing
  - ## What we are not testing
+ - ## Exploratory Testing
  - ## How we are combining our tests
  - ## Code Review
  - ## Bug Handling
@@ -161,6 +166,18 @@ Verifying that datapacks generate the desired effects when run in Minecraft is b
 
 <br/>
 
+# Exploratory Testing
+Explore features of parser, understand generated packs, experiment with behavior in Minecraft.
+ - ## Brendan
+   - explore more minecraft commands, see how it compiles
+ - ## Adam
+ - ## Ethan
+   - remove whitespace, abuse parser
+   - nesting weirdly
+   - abuse define
+
+<br/>
+
 # How we are combining our tests
 Currently GTest tests are being developed in separate folders for convenience to avoid with Git conflicts. However, a system must be developed to combine these disparate tests into a fully automated, unified test suite. This requires standardization of testing methods, as well as education into the use of git branches.
 
@@ -169,7 +186,7 @@ Furthermore, we will be verifying that datapacks behave as expected in Minecraft
 # Code Reviews
 A single unified, but cursory code review of the MCLang source code was completed on 11/11, which yielded some additional insight into the workings of the product. In this meeting, each group member pre-selected a nd presented interesting functions from the code base, and the group discussed the details and vulernabilities of each section. Further code review is encouraged as group members build out additional tests.
 
-Test case reviews will be completed on 11/20 and 12/4 to allow group members to review and comment on the test cases created by other group members. The goal of these reviews is to ensure a unified vision and quality across test suites and move towards a cohesive final product. Each review will consist of a candid report from each group member on the state and coverage of their tests, followed by a peer review of specific tests, and finally a discussion of future steps.
+Test case reviews will be completed on 12/4 to allow group members to review and comment on the test cases created by other group members. The goal of these reviews is to ensure a unified vision and quality across test suites and move towards a cohesive final product. Each review will consist of a candid report from each group member on the state and coverage of their tests, followed by a peer review of specific tests, and finally a discussion of future steps.
 
 <br/>
 
