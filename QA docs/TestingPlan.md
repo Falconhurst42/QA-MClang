@@ -169,14 +169,13 @@ Verifying that datapacks generate the desired effects when run in Minecraft is b
 # Exploratory Testing
 Each group member individually performed exploratory testing of the MCLang project, seeking to better understand its behavior. Specifically, we sought to explore features of the parser, understand the logic of generated packs, and experiment with compiled behavior in Minecraft. The particular activities and conclusions of each group member are as follows:
  - ## Adam
+   I experimented with inaccesible if-statements and returns. MCLang recognizes that anything within an if (False) block should not be compiled, however it still makes the MCLang dummy scoreboard .mcfunction file, just without the code inside the if statement. It does not recognize non boolean comparisons, for example if (2 == 3) behaves differently than the false block and still is compiled normally. Everything after a return statement is not compiled and seems to be completely ignored by the program, however if you put a return inside of an if-statement that always gets reached, for example if (true), then it still compiles the code after that return. I will try to write a few tests cases to check and verify these different behaviors.
  - ## Brendan
-   - explore more minecraft commands, see how it compiles/behaves
-   - time, weather, spawn, kill, teleport, gamemode
-   - Each minecraft command worked in-game (as expected). The main issue is having commands run back to back. If I used 'gamemode creative' then 'gamemode survival'    the second command would not execute. I believe that is caused from Minecraft not being able to work as fast.   
+   I explored more minecraft commands to see how each compiles/behaves. Specifically, I looked into `time`, `weather`, `spawn`, `kill`, `teleport`, and `gamemode`. Each minecraft command worked in-game (as expected). The main issue is having commands run back to back. If I used 'gamemode creative' then 'gamemode survival' the second command would not execute. I believe that is caused from Minecraft not being able to work as fast. 
  - ## Ethan
-   - remove whitespace, abuse parser
-   - nesting weirdly
-   - abuse define
+   I specfically explored the consequences of the preprocessor and a couple quirks of the parser in general. This is in part building off the code review where we hit the `#define` code. I'm concluding that the parser handles omitted whitespace well (in a very C-like way), however the trend of naive mincraft parsing continues. You can put returns in strings and they will be copied blingly into the commands, which breaks the datapack (but doesn't through an error). In my mind, this could be considered a bug.
+
+   I also noticed that define statements let you make oneliners which include mincraft commands (which you couldn't do without them since normaly MC commands are only recognized at the beginning of a line). Furthermore, the syntax follows C convetions with brackless if statements and using `\` to do mutli-line defines. Finally, nested mutli-target `execute` clauses can exponentially grow the number of commands executed by a pack.  that's not really a bug, just a great was to crash and corrupt your world by summoning 100,00 bats.
 
 <br/>
 
