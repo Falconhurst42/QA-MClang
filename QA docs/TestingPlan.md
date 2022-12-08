@@ -167,10 +167,10 @@ Verifying that datapacks generate the desired effects when run in Minecraft is b
 <br/>
 
 # Exploratory Testing
-Explore features of parser, understand generated packs, experiment with behavior in Minecraft.
- - ## Brendan
-   - explore more minecraft commands, see how it compiles
+Each group member individually performed exploratory testing of the MCLang project, seeking to better understand its behavior. Specifically, we sought to explore features of the parser, understand the logic of generated packs, and experiment with compiled behavior in Minecraft. The particular activities and conclusions of each group member are as follows:
  - ## Adam
+ - ## Brendan
+   - explore more minecraft commands, see how it compiles/behaves
  - ## Ethan
    - remove whitespace, abuse parser
    - nesting weirdly
