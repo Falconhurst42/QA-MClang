@@ -172,9 +172,10 @@ Each group member individually performed exploratory testing of the MCLang proje
  - ## Brendan
    - explore more minecraft commands, see how it compiles/behaves
  - ## Ethan
-   - remove whitespace, abuse parser
-   - nesting weirdly
-   - abuse define
+   
+   I specfically explored the consequences of the preprocessor and a couple quirks of the parser in general. This is in part building off the code review where we hit the `#define` code. I'm concluding that the parser handles omitted whitespace well (in a very C-like way), however the trend of naive mincraft parsing continues. You can put returns in strings and they will be copied blingly into the commands, which breaks the datapack (but doesn't through an error). In my mind, this could be considered a bug.
+
+   I also noticed that define statements let you make oneliners which include mincraft commands (which you couldn't do without them since normaly MC commands are only recognized at the beginning of a line). Furthermore, the syntax follows C convetions with brackless if statements and using `\` to do mutli-line defines. Finally, nested mutli-target `execute` clauses can exponentially grow the number of commands executed by a pack.  that's not really a bug, just a great was to crash and corrupt your world by summoning 100,00 bats.
 
 <br/>
 

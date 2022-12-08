@@ -12,9 +12,9 @@ WORLD_PACK := $(WORLD_BASE)/$(world)/datapacks/$(pack)
 
 target:
     ifneq ($(pack), NONE)
-        $(shell build/main $(SRC) -o $(OUT))
+		build/main $(SRC) -o $(OUT)
         ifneq ($(world), NONE)
-            $(shell rm -r "$(WORLD_PACK)")
-            $(shell cp -R $(OUT) "$(WORLD_PACK)")
+			rm -r "$(WORLD_PACK)"
+			cp -R $(OUT) "$(WORLD_PACK)"
         endif
     endif    
