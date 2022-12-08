@@ -1,5 +1,6 @@
 
-# MCLang - Programming Minecraft Datapacks
+# MCLang - Programming Minecraft Datapacks 
+#
 
 [![GitHub license](https://badgen.net/github/license/PurpleStripedUnicorn/MCLang)](https://github.com/PurpleStripedUnicorn/MCLang/blob/master/LICENSE)
 [![Twitter](https://badgen.net/badge/icon/twitter/cyan?icon=twitter&label)](https://twitter.com/striped_purple)

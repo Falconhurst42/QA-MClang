@@ -1,0 +1,93 @@
+void test_addition() {
+    const int n1 = 10;
+    const int n2 = 10;
+    const int sum = n1 + n2;
+    /tellraw @a The sum is {{sum}}
+}
+
+void test_subtraction() {
+    const int n1 = 30;
+    const int n2 = 10;
+    const int sum = n1 - n2;
+    /tellraw @a The difference is {{sum}}
+}
+
+void test_multiply() {
+    const int n1 = 5;
+    const int n2 = 4;
+    const int sum = n1 * n2;
+    /tellraw @a The product is {{sum}}
+}
+
+void test_divide() {
+    const int n1 = 100;
+    const int n2 = 5;
+    const int sum = n1 / n2;
+    /tellraw @a The quotient is {{sum}}
+}
+
+void test_modulus() {
+    const int n1 = 20;
+    const int n2 = 3;
+    const int sum = n1 % n2;
+    /tellraw @a The modulus is {{sum}}
+}
+
+void test_order() {
+    const int n1 = 5;
+    const int n2 = 2;
+    const int sum = n2 * (n1 * n2);
+    /tellraw @a The modulus is {{sum}}
+}
+
+void test_order2() {
+    const int n1 = 5;
+    const int n2 = 2;
+    const int sum = n2 + n1 * n2;
+    /tellraw @a The modulus is {{sum}}
+}
+
+void test_comptrue() {
+    const bool n1 = true;
+    const bool n2 = true;
+    const bool ans = n1 && n2;
+    /tellraw @a The comparison is {{ans}}
+}
+
+void test_compfalse() {
+    const bool n1 = true;
+    const bool n2 = false;
+    const bool ans = n1 && n2;
+    /tellraw @a The comparison is {{ans}}
+}
+
+void test_compor() {
+    const bool n1 = true;
+    const bool n2 = false;
+    const bool ans = n1 || n2;
+    /tellraw @a The comparison is {{ans}}
+}
+
+void test_compnot() {
+    const bool n1 = true;
+    const bool ans = !n1;
+    /tellraw @a The comparison is {{ans}}
+}
+
+void test_comment1() {
+    ///say There should be no 10;
+    /tellraw @a Text = 20
+}
+
+void test_comment2() {
+    /*
+    /say There should be no 10;
+    */
+    /tellraw @a Text = 20
+}
+
+void test_inaccesible() {
+    if (false) {
+        /say Shouldn't see this
+    }
+}
