@@ -169,6 +169,7 @@ Verifying that datapacks generate the desired effects when run in Minecraft is b
 # Exploratory Testing
 Each group member individually performed exploratory testing of the MCLang project, seeking to better understand its behavior. Specifically, we sought to explore features of the parser, understand the logic of generated packs, and experiment with compiled behavior in Minecraft. The particular activities and conclusions of each group member are as follows:
  - ## Adam
+   - I experimented with inaccesible if-statements and returns. MCLang recognizes that anything within an if (False) block should not be compiled, however it still makes the MCLang dummy scoreboard .mcfunction file, just without the code inside the if statement. It does not recognize non boolean comparisons, for example if (2 == 3) behaves differently than the false block and still is compiled normally. Everything after a return statement is not compiled and seems to be completely ignored by the program, however if you put a return inside of an if-statement that always gets reached, for example if (true), then it still compiles the code after that return. I will try to write a few tests cases to check and verify these different behaviors.
  - ## Brendan
    - explore more minecraft commands, see how it compiles/behaves
  - ## Ethan
