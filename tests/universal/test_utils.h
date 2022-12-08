@@ -6,18 +6,19 @@
 #include <vector>
 #include "../universal/Datapack.h"
 
-void VERIFY_GOOD_BUILD(const Datapack& scr);
+void VERIFY_GOOD_BUILD(const Datapack& scr, bool warnings = false);
 void VERIFY_BAD_BUILD(const Datapack& scr, const std::string& err = "");
 
 // verifies that file has built properly
 //  - with successful return code
-//  - without any output
+//  - without any output (unless warnings)
 //  - datapack folder created
-void VERIFY_GOOD_BUILD(const Datapack& src) {
+void VERIFY_GOOD_BUILD(const Datapack& src, bool warnings) {
     // verify success code
     EXPECT_EQ(src.rez.code, 0);
     // verify no output
-    EXPECT_EQ(src.rez.output, "");
+    if(!warnings)
+        EXPECT_EQ(src.rez.output, "");
 
     // verify file structure
     const std::string BASE_PATH = src._makeCompiledPath(),
@@ -33,7 +34,9 @@ void VERIFY_GOOD_BUILD(const Datapack& src) {
     const std::string FUNCT_PATH = src._makeFunctionsPath();
     const std::string TAG_PATH = src._makeTagsPath();
     for(const Datapack::Function& f : src.foos) {
-        EXPECT_TRUE(src._MCFunctionExists(f.getFormattedName()));
+        // functs with return-types don't get the same name
+        if(f.rtype == "void")
+            EXPECT_TRUE(src._MCFunctionExists(f.getFormattedName()));
         // if f.name is in TAGGED_FUNCT_NAMES...
         if(std::find(TAGGED_FUNCT_NAMES.cbegin(), TAGGED_FUNCT_NAMES.cend(), f.getFormattedName()) != TAGGED_FUNCT_NAMES.cend()) {
             // check for file

@@ -230,7 +230,7 @@ inline std::string makeFunctionsPath(std::string packname, std::string namesp) {
     std::vector<std::string> listMCFunctionNames(std::string packname, std::string namesp) {
         std::vector<std::string> out = getDirectoryContents(makeFunctionsPath(packname, namesp));
         for(std::string& foo : out)
-            foo = foo.substr(foo.find(FOO_EXT, 0));
+            foo = foo.substr(0, foo.find(FOO_EXT, 0));
         return out;
     }
 
@@ -272,7 +272,7 @@ inline std::string makeFunctionsPath(std::string packname, std::string namesp) {
 
 // checks if `src` string contains `search` string
 bool inStr(std::string src, std::string search) {
-    return std::search(src.begin(), src.end(), search.begin(), search.end()) == src.end();
+    return std::search(src.begin(), src.end(), search.begin(), search.end()) != src.end();
 }
 
 // my own jank implementation of pretty int printing
@@ -305,17 +305,34 @@ std::string thousandsSep(size_t n) {
 // executes the given command and returns the result
 //  Getting command output: https://stackoverflow.com/a/478960
 //  Getting command result: https://stackoverflow.com/a/52165057
+//  Getting cerr: https://stackoverflow.com/a/23330438
 CommandResult execCommand(std::string cmd) {
     std::array<char, 128> buffer;
     std::string result;
-    auto pipe(popen(cmd.c_str(), "r"));
+    auto pipe(popen((cmd + " 2> cerr.txt").c_str(), "r"));
     if (!pipe)
         throw std::runtime_error("popen() failed!");
     
     while (fgets(buffer.data(), buffer.size(), pipe) != nullptr)
         result += buffer.data();
     
-    return CommandResult(result, pclose(pipe));
+    return CommandResult(result + getFileContents("cerr.txt"), pclose(pipe));
+}
+
+CommandResult makeAndBuildFile(std::string filename, std::string contents) {
+    // cleanup previous build
+    cleanupBuildFiles(makeSourcePath(filename), makeCompiledPath(filename));
+
+    // make file
+    std::ofstream f(makeSourcePath(filename));
+    if(!f.is_open())
+        throw std::runtime_error("Could not create file: " + makeSourcePath(filename));
+    // pass text
+    f << contents;
+    f.close();
+
+    // run and return build
+    return buildFile(makeSourcePath(filename), makeCompiledPath(filename));
 }
 
 // builds the file with the given path and returns the result

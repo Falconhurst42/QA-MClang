@@ -148,6 +148,8 @@ struct CommandResult {
 //  Getting command result: https://stackoverflow.com/a/52165057
 CommandResult execCommand(std::string cmd);
 
+CommandResult makeAndBuildFile(std::string filename, std::string contents);
+
 // builds the file with the given path and returns the result
 //  optional args for output folder and namespace command line arguments
 //  to skip -o but provide -n, use `build(fff, "", nnn)`
