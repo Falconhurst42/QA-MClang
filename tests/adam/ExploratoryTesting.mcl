@@ -1,0 +1,42 @@
+void test_unreachable() {
+    if (false) {
+        /say This should not be seen
+    }
+}
+
+void test_infinite() {
+    while (true) {
+        /say Hello
+    }
+    /say Do you see this?
+}
+
+void test_test1() {
+    /say Visible
+    return;
+    /say Hidden
+    if (2 == 2) {
+        /say ahhhhhhhh
+    }
+}
+
+void test_test2() {
+    if (2 == 3) {
+        /say Hidden
+    }
+}
+
+void test_test3() {
+    if (true) {
+        /say test3 visible
+        return;
+    }
+    /say this should not exist
+}
+
+void test_test4() {
+    bool b = false;
+    if (b) {
+        /say No access
+    }
+}
