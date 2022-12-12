@@ -7,7 +7,10 @@
 
 # To Add?
  - ## Product View (static analysis, code coverage)
- - ## 
+   - dicussion of potential methods (need to alter the MCLang build)
+ - ## User View
+   - -ilities
+     - Reliability (stress test)
 
 <br/>
 

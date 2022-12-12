@@ -1,7 +1,9 @@
 #include <gtest/gtest.h>
 #include "PythonSetup.h"
+#include "Arithmetic.cpp"
 #include "BuildBasics.cpp"
 #include "Commands.cpp"
+#include "Escape.cpp"
 #include "Functions.cpp"
 #include "Namespacing.cpp"
 #include "Preprocessor.cpp"
