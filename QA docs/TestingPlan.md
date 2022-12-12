@@ -183,9 +183,31 @@ Each group member individually performed exploratory testing of the MCLang proje
 <br/>
 
 # How we are combining our tests
-Currently GTest tests are being developed in separate folders for convenience to avoid with Git conflicts. However, a system must be developed to combine these disparate tests into a fully automated, unified test suite. This requires standardization of testing methods, as well as education into the use of git branches.
+Currently GTest tests are being developed in separate folders for convenience to avoid Git conflicts. However, a system must be developed to combine these disparate tests into a fully automated, unified test suite. This requires standardization of testing methods, as well as education into the use of git branches.
 
-Furthermore, we will be verifying that datapacks behave as expected in Minecraft using the Python library pywinauto. This functionality will be integrated with C++ by launching a Python script at the beginning of the GTest C++ files using a system command. The two programs will communicate ddata using files placed in a designated "Python" folder. Specifically, an individual GTests will move a compiled datapack into the python folder for pywinauto to process asynchronously. Pywinauto will run a standard test and output its results in a corresponding text file. The final GTest suite will consist of tests corresponding to each of the tests which called pywinauto. Each test will wait for pywinauto to create the corresponding output file and perform verification on the results. When all GTests are complete, C++ will create a final file which informs Python that it can terminate. As a rule, if C++ creates a file/folder in the python subfolder, Python will be the one to delete it once it has read and received the message (and vice versa).
+Furthermore, we plan on verifying the datapacks behavior in Minecraft using the Python library pywinauto. This functionality will be integrated with C++ by launching a Python script at the beginning of the GTest C++ files using a system command. The two programs will communicate data using files placed in a designated "Python" folder. Specifically, an individual GTests will move a compiled datapack into the python folder for pywinauto to process asynchronously. Pywinauto will run a standard test and output its results in a corresponding text file. The final GTest suite will consist of tests corresponding to each of the tests which called pywinauto. Each test will wait for pywinauto to create the corresponding output file and perform verification on the results. When all GTests are complete, C++ will create a final file which informs Python that it can terminate. As a rule, if C++ creates a file/folder in the python subfolder, Python will be the one to delete it once it has read and received the message (and vice versa).
+
+There were definite road blocks that prevented us from creating a robust Python script. The most important road block is not being able to properly find elements in the Minecraft menus. We found a solution using loops of `keyboard.send_keys("{TAB}")` to navigate the menus, however, if we did not have our MCLang world as our last accessed world, the script would not open the correct world. We deemed that this solution was not good enough. There were too many things we had to do for the script to work making it more of a chore to run, especially across our different clients. 
+
+The function `print_control_identifiers()` prints all the dialogs from the current application, which is what we used to find the title of Minecraft, but we were unable to find any information about the menus. That output gave us: 
+```
+  Dialog - 'Minecraft 1.19.3'    (L0, T0, R1920, B1080)
+  ['Minecraft 1.19.3Dialog', 'Minecraft 1.19.3', 'Dialog']
+  child_window(title="Minecraft 1.19.3", control_type="Window")
+```
+When using `print_control_identifiers()` there are pieces of information that pywinauto can use to find what you are looking for. It uses an algorithm called "best match." This essentially finds the closest element to what you set it as. To properly use this algorithm and `print_control_identifiers()` for our case would look like this:
+
+   `app.Minecraft1193Dialog.print_control_identifiers()`
+
+This should have returned the identifiers of the Minecraft dialog, but it would only output that same text as above. To navigate "deeper" into the Minecraft application, we tried various forms of that same command. For instance:
+
+`app.Minecraft1193Dialog.Menu.print_control_identifiers()`
+
+Each variation would throw this error:
+```
+pywinauto.findwindows.ElementNotFoundError: {'best_match': 'Menu', 'top_level_only': False, 'parent': <uia_element_info.UIAElementInfo - 'Minecraft 1.19.3', GLFW30, 853526>, 'backend': 'uia'}
+```
+The `{'best_match': 'Menu'` is the best match algorithm not finding 'Menu'
 
 # Code Reviews
 A single unified, but cursory code review of the MCLang source code was completed on 11/11, which yielded some additional insight into the workings of the product. In this meeting, each group member pre-selected a nd presented interesting functions from the code base, and the group discussed the details and vulernabilities of each section. Further code review is encouraged as group members build out additional tests.
