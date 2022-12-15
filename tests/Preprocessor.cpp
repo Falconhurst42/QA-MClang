@@ -1,6 +1,10 @@
+// Commands
+// Tests MCLangs handling of preprocessor directives, specifically #define
+// Ethan (created), 12/7/2022, 0.3.4-alpha
+
 #include <gtest/gtest.h>
-#include "../universal/test_utils.h"
-#include "../universal/utils.h"
+#include "universal/test_utils.h"
+#include "universal/utils.h"
 #include "TestSetup.h"
 
 /***************************************|
@@ -9,6 +13,8 @@
 |                                       |
 |***************************************/
 
+// Define a void function name/declaration
+// Ethan, 12/7/2022, Should Pass
 TEST(Preprocessor, FunctionDecDefine) {
     std::string name = "Preprocessor_FunctionDecDefine";
     CommandResult rez = makeAndBuildFile(name, std::string("")
@@ -27,6 +33,8 @@ TEST(Preprocessor, FunctionDecDefine) {
     cleanupBuildFiles(makeSourcePath(name), makeCompiledPath(name));
 }
 
+// Define a int function name/declaration
+// Ethan, 12/7/2022, Should Pass
 TEST(Preprocessor, FunctionDecDefine_Int) {
     std::string name = "Preprocessor_FunctionDecDefine_Int";
     CommandResult rez = makeAndBuildFile(name, std::string("")
@@ -44,6 +52,8 @@ TEST(Preprocessor, FunctionDecDefine_Int) {
     cleanupBuildFiles(makeSourcePath(name), makeCompiledPath(name));
 }
 
+// Define a full MCFunction
+// Ethan, 12/7/2022, Should Pass
 TEST(Preprocessor, MCFunctionAlias) {
     std::string name = "Preprocessor_MCFunctionAlias";
     CommandResult rez = makeAndBuildFile(name, std::string("")
@@ -62,6 +72,8 @@ TEST(Preprocessor, MCFunctionAlias) {
     cleanupBuildFiles(makeSourcePath(name), makeCompiledPath(name));
 }
 
+// Define an execute clause
+// Ethan, 12/7/2022, Should Pass
 TEST(Preprocessor, ExecuteClauseAlias) {
     std::string name = "Preprocessor_ExecuteClauseAlias";
     CommandResult rez = makeAndBuildFile(name, std::string("")
@@ -82,6 +94,8 @@ TEST(Preprocessor, ExecuteClauseAlias) {
     cleanupBuildFiles(makeSourcePath(name), makeCompiledPath(name));
 }
 
+// use several defines to one-line a full program
+// Ethan, 12/7/2022, Should Pass
 TEST(Preprocessor, OneLineIt) {
     std::string name = "Preprocessor_OneLineIt";
     CommandResult rez = makeAndBuildFile(name, std::string("")
@@ -107,6 +121,8 @@ TEST(Preprocessor, OneLineIt) {
 |                                       |
 |***************************************/
 
+// attempt to use alis before it gets defined
+// Ethan, 12/7/2022, Should Pass
 TEST(Preprocessor, DefineAfter) {
     std::string name = "Preprocessor_DefineAfter";
     CommandResult rez = makeAndBuildFile(name, std::string("")
@@ -123,6 +139,8 @@ TEST(Preprocessor, DefineAfter) {
     cleanupBuildFiles(makeSourcePath(name), makeCompiledPath(name));
 }
 
+// Use alias beforehand to mean one thing, then define it and use it to mean another
+// Ethan, 12/7/2022, Should Pass
 TEST(Preprocessor, DefineAfterAndBefore) {
     std::string name = "Preprocessor_DefineAfterAndBefore";
     CommandResult rez = makeAndBuildFile(name, std::string("")
@@ -159,6 +177,8 @@ TEST(Preprocessor, DefineAfterAndBefore) {
 |                                       |
 |***************************************/
 
+// spread a defin across multiple lines
+// Ethan, 12/7/2022, Should Pass
 TEST(Preprocessor, MultilineIt) {
     std::string name = "Preprocessor_MultilineIt";
     CommandResult rez = makeAndBuildFile(name, std::string("")
@@ -178,6 +198,8 @@ TEST(Preprocessor, MultilineIt) {
     cleanupBuildFiles(makeSourcePath(name), makeCompiledPath(name));
 }
 
+// spread a define across far too many lines
+// Ethan, 12/7/2022, Should Pass
 TEST(Preprocessor, UnreasonablyMutlilined) {
     std::string name = "Preprocessor_MultilineIt";
     CommandResult rez = makeAndBuildFile(name, std::string("")
@@ -209,7 +231,10 @@ TEST(Preprocessor, UnreasonablyMutlilined) {
 |            Function Manip             |
 |                                       |
 |***************************************/
+
+// mix comments, MC functions, and defines
 // put comment without define, it gets wrapped in command
+// Ethan, 12/7/2022, Should Pass
 TEST(Preprocessor, CommandCommentParsed) {
     std::string name = "Preprocessor_CommandCommentParsed";
     CommandResult rez = makeAndBuildFile(name, std::string("")
@@ -226,7 +251,10 @@ TEST(Preprocessor, CommandCommentParsed) {
     // clean up built files
     cleanupBuildFiles(makeSourcePath(name), makeCompiledPath(name));
 }
+
+// mix comments, MC functions, and defines
 // put comment with define, doesn't get wrapped in command
+// Ethan, 12/7/2022, Should Pass
 TEST(Preprocessor, CommandCommentNotParsed) {
     std::string name = "Preprocessor_CommandCommentNotParsed";
     CommandResult rez = makeAndBuildFile(name, std::string("")

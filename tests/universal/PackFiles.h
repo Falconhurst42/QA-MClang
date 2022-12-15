@@ -1,6 +1,9 @@
 #ifndef PACK_FILES_H
 #define PACK_FILES_H
 
+// Experimental structure to manage the built files of a datapack
+//   stable, but not supported. Use at your own risk
+
 #include "Datapack.h"
 #include "utils.h"
 #include <string>

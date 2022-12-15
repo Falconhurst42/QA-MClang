@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
-#include "PythonSetup.h"
+// #include "PythonSetup.h"
 #include "Arithmetic.cpp"
+#include "BasicMath.cpp"
 #include "BuildBasics.cpp"
 #include "Commands.cpp"
 #include "Escape.cpp"
@@ -12,10 +13,10 @@
 // #include "PythonCleanup.cpp"
 
 int main(int argc, char **argv) {
-    pythonStart();
+    //pythonStart();
     testing::InitGoogleTest(&argc, argv);
     int rez = RUN_ALL_TESTS();
-    pythonCleanup();
+    //pythonCleanup();
 
     return rez;
 }

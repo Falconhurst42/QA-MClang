@@ -1,13 +1,15 @@
-// tests.cpp
+// Arithmetic
+// Verifies behavior of MCLang's parsing of escape characters
+// Adam (created), 10/19/2022, 0.3.4-alpha
+// Adam, Ethan (ported), 12/12/2022, 0.3.4-alpha
+
 //#include "testDatapacks.cpp"
 #include "TestSetup.h"
+#include "universal/Datapack.h"
 #include <gtest/gtest.h>
 
-//../../build/main "testBuild.mcl"
-//Need to build the files first then do make then .\runtests
-//should have 3 pass and 7 fail
-
 //Newline \n
+// Adam, 10/19, Should Pass
 TEST(EscapeCharacters, NewLine) {
     Datapack src((std::vector<Datapack::Function>){ ESCNEWLINE });
     src.name = "EscapeCharacters_NewLine";
@@ -19,6 +21,7 @@ TEST(EscapeCharacters, NewLine) {
 }
 
 //Tab \t
+// Adam, 10/19, Should Pass
 TEST(EscapeCharacters, Tab) {
     Datapack src((std::vector<Datapack::Function>){ ESCTAB });
     src.name = "EscapeCharacters_Tab";
@@ -30,7 +33,8 @@ TEST(EscapeCharacters, Tab) {
 }
 
 //Alert \a
-//Currently should fail since it isn't supported
+// Currently \a isn't supported, so test is impotent
+// Adam, 10/19, Should Pass
 TEST(EscapeCharacters, Alert) {
     Datapack src((std::vector<Datapack::Function>){ ESCALERT });
     src.name = "EscapeCharacters_Alert";
@@ -42,7 +46,8 @@ TEST(EscapeCharacters, Alert) {
 }
 
 //Backspace \b
-//Currently should fail since it isn't supported
+// Currently \b isn't supported, so test is impotent
+// Adam, 10/19, Should Pass
 TEST(EscapeCharacters, Backspace) {
     Datapack src((std::vector<Datapack::Function>){ ESCBACKSPACE });
     src.name = "EscapeCharacters_Backspace";
@@ -54,7 +59,8 @@ TEST(EscapeCharacters, Backspace) {
 }
 
 //NewPage \f
-//Currently should fail since it isn't supported
+// Currently \f isn't supported, so test is impotent
+// Adam, 10/19, Should Pass
 TEST(EscapeCharacters, NewPage) {
     Datapack src((std::vector<Datapack::Function>){ ESCNEWPAGE });
     src.name = "EscapeCharacters_NewPage";
@@ -66,7 +72,8 @@ TEST(EscapeCharacters, NewPage) {
 }
 
 //Return \r
-//Currently should fail since it isn't supported
+// Currently \r isn't supported, so test is impotent
+// Adam, 10/19, Should Pass
 TEST(EscapeCharacters, Return) {
     Datapack src((std::vector<Datapack::Function>){ ESCRETURN });
     src.name = "EscapeCharacters_Return";
@@ -78,6 +85,8 @@ TEST(EscapeCharacters, Return) {
 }
 
 //Vertical Tab \v
+// Currently \v isn't supported, so test is impotent
+// Adam, 10/19, Should Pass
 TEST(EscapeCharacters, VertTab) {
     Datapack src((std::vector<Datapack::Function>){ ESCVTAB });
     src.name = "EscapeCharacters_VertTab";
@@ -89,7 +98,8 @@ TEST(EscapeCharacters, VertTab) {
 }
 
 //Backslash
-//Currently should fail since it isn't supported
+// Currently \b isn't supported, so test is impotent
+// Adam, 10/19, Should Pass
 TEST(EscapeCharacters, Backslash) {
     Datapack src((std::vector<Datapack::Function>){ ESCBACKSLASH });
     src.name = "EscapeCharacters_Backslash";
@@ -101,7 +111,7 @@ TEST(EscapeCharacters, Backslash) {
 }
 
 //Single Quote \'
-//Currently should fail since it isn't supported
+// Adam, 10/19, Should Pass
 TEST(EscapeCharacters, SingleQuote) {
     Datapack src((std::vector<Datapack::Function>){ ESCSINGQUOTE });
     src.name = "EscapeCharacters_SingleQuote";
@@ -113,7 +123,7 @@ TEST(EscapeCharacters, SingleQuote) {
 }
 
 //Double Quote \"
-//Currently should fail since it isn't supported
+// Adam, 10/19, Should Pass
 TEST(EscapeCharacters, DoubleQuote) {
     Datapack src((std::vector<Datapack::Function>){ ESCDOUBQUOTE });
     src.name = "EscapeCharacters_DoubleQuote";

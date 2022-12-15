@@ -1,5 +1,8 @@
 #include "PackFiles.h"
 
+// Experimental structure to manage the built files of a datapack
+//   stable, but not supported. Use at your own risk
+
 // builds the Datapack into PackFiles
 //  optional -n argument for namespace
 //  saves command result to Rez
@@ -10,8 +13,9 @@ PackFiles::PackFiles(Datapack _dp, std::string n)
     name(dp.name) {
     // make source file
     std::ofstream f(dp._makeSourcePath());
-    if(!f.is_open())
+    if(!f.is_open()) {
         throw std::runtime_error("Could not create file: " + dp._makeSourcePath());
+    }
     
     // write source file text
     f << dp.generateText();

@@ -1,7 +1,13 @@
+// Commands
+// Tests MCLangs handling of namespacing
+// Ethan (created), 10/19/2022, 0.3.4-alpha
+// Ethan (updated), 10/26/2022, 0.3.4-alpha
+// Ethan (updated), 11/21/2022, 0.3.4-alpha
+
 #include <gtest/gtest.h>
-#include "../universal/Datapack.h"
-#include "../universal/test_utils.h"
-#include "../universal/utils.h"
+#include "universal/Datapack.h"
+#include "universal/test_utils.h"
+#include "universal/utils.h"
 #include "TestSetup.h"
 
 /***************************************|
@@ -11,6 +17,7 @@
 |***************************************/
 
 // verifies that basic file builds with successful return code when provided -n arg
+// Ethan, 10/19/2022, Should Pass
 TEST(Namespacing, DashN) { 
     Datapack src(HELLO_FILE);
     src.name = "Namespacing_DashN";
@@ -21,6 +28,7 @@ TEST(Namespacing, DashN) {
 }
 
 // verifies that basic file with namespace builds with successful return code
+// Ethan, 10/19/2022, Should Pass
 TEST(Namespacing, Namespaced) { 
     Datapack src(HELLO_FILE);
     src.name = "Namespacing_Namespaced";
@@ -32,6 +40,7 @@ TEST(Namespacing, Namespaced) {
 }
 
 // verifies that basic file with namespace builds with successful return code when also given a concurring -n arg
+// Ethan, 10/19/2022, Should Pass
 TEST(Namespacing, Namespaced_DashN) { 
     Datapack src(HELLO_FILE);
     src.name = "Namespacing_Namespaced_DashN";
@@ -43,6 +52,7 @@ TEST(Namespacing, Namespaced_DashN) {
 }
 
 // verifies that basic file with namespace builds with successful return code when also given a conflicting -n arg
+// Ethan, 10/19/2022, Should Pass
 TEST(Namespacing, Conflicting_Namespaced_DashN) { 
     Datapack src(HELLO_FILE);
     src.name = "Namespacing_Conflicting_Namespaced_DashN";

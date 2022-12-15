@@ -1,6 +1,6 @@
 {
-    "SOURCE_PATH": "../files/sourcefiles/",
-    "DATA_PATH": "../files/datafiles/",
+    "SOURCE_PATH": "files/sourcefiles/",
+    "DATA_PATH": "files/datafiles/",
     "PYTHON_PATH": "/mnt/c/MCLang/",
     "SRC_EXT": ".mcl",
     "FOO_EXT": ".mcfunction",

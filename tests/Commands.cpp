@@ -1,6 +1,10 @@
+// Commands
+// Tests MCLangs recognition of valid/invalid minecraft commands
+// Ethan (created), 12/7/2022, 0.3.4-alpha
+
 #include <gtest/gtest.h>
-#include "../universal/test_utils.h"
-#include "../universal/utils.h"
+#include "universal/test_utils.h"
+#include "universal/utils.h"
 #include "TestSetup.h"
 #include <vector>
 #include <string>
@@ -40,10 +44,16 @@ REMOVED_CMDS = {
     "replaceitem", "resupply", "setfixedinvslot", "setfixedinvslots", "setspawn", "solid",
     "stats", "testfor", "testforblock", "testforblocks", "toggledownfall", "transferserver",
     "unban", "videostream", "videostreamaction", "warden_spawn_tracker",
-// these cmds shouldn't be recognized but aren't
+// these cmds shouldn't be recognized but are
     "locatebiome", "replaceitem"
 };
 
+// Tests MCLangs recognition of valid minecraft commands
+// Ethan (created), 12/7/2022, Currently Fails
+//    these cmds should be recognized but aren't
+//    most (all?) only apply to mutliplayer servers
+//      "ban", "banlist", "debug", "deop", "jfr", "kick", "list", "me", "op", "pardon", "perf", 
+//      "publish", "save", "setidletimeout", "stop", "teammsg", "trigger", "whitelist"
 TEST(Commands, AllCommands) {
     // make DP
     std::string contents("");
@@ -71,6 +81,8 @@ TEST(Commands, AllCommands) {
     // built files cleaned up by destructor when src falls out of scope
 }
 
+// Tests MCLangs (non)recognition of invalid minecraft commands
+// Ethan (created), 12/7/2022, Should Pass
 TEST(Commands, InvalidCommands) {
     // make DP
     std::string contents("");
@@ -100,6 +112,10 @@ TEST(Commands, InvalidCommands) {
     // built files cleaned up by destructor when src falls out of scope
 }
 
+// Tests MCLangs (non)recognition of removed minecraft commands
+// Ethan (created), 12/7/2022, Currently Fails
+//   these cmds shouldn't be recognized but are
+//     "locatebiome", "replaceitem"
 TEST(Commands, RemovedCommands) {
     // make DP
     std::string contents("");
@@ -129,6 +145,10 @@ TEST(Commands, RemovedCommands) {
     // built files cleaned up by destructor when src falls out of scope
 }
 
+
+// Tests MCLangs handling of alternative casing
+//   verifies that warning is sent but files are still created
+// Ethan (created), 12/7/2022, Should Pass
 TEST(Commands, CaseChanges) {
     // make DP
     Datapack src((std::vector<Datapack::Function>){ 
@@ -153,6 +173,9 @@ TEST(Commands, CaseChanges) {
     // built files cleaned up by destructor when src falls out of scope
 }
 
+// Tests MCLangs handling of "empty command
+//   verifies that warning is sent but files are still created
+// Ethan (created), 12/7/2022, Should Pass
 TEST(Commands, EmptyCommand) {
     // make DP
     Datapack src((std::vector<Datapack::Function>){ 

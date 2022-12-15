@@ -1,3 +1,25 @@
+# Setup
+ - The project is hosted in a public [GitHub repository](https://github.com/Falconhurst42/QA-MClang), which contains all code from the [original MCLang repository](https://github.com/PurpleStripedUnicorn/MCLang) in addition to the QA files
+ - ## Building MCLang
+   - Instructions for building MCLang can be found in the [original repository](https://github.com/PurpleStripedUnicorn/MCLang#readme)
+   - For Windows users, WSL [Ubuntu](https://ubuntu.com/wsl) environment is recommended
+ - ## Configuring Tests
+   - Each team member should perform their test in their own subfolder of the QA-MCLang repository under `tests/<their name>`
+   - To setup GTest on WSL Ubuntu, follow [these instructions](https://www.eriksmistad.no/getting-started-with-google-test-on-ubuntu/), with the following deviations
+   - At the end, place a copy of the `CMakeLists.txt` file into your testing subfolder
+   - Navigate the Ubuntu (WSL) command line to the folder
+   - Run `cmake CMakeLists.txt` to configure gtest for the folder
+   - To build a project, run `make`
+   - To run a project, run `./runTests`
+ - ## Run Master Suite
+   - Navigate CLI to `tests/`
+   - Run `cmake CMakeLists.txt` to configure gtest for the folder on your machine
+   - To build tests, run `make`
+   - To run tests, run `./runTests`
+ - ## Reference
+   - For examples of testing using this system, check out existing subfolders from other users
+ - NOTE: Git has been finicky with tracking files in testing subfolders, be careful when pushing to ensure all your files are being committed
+
 # makeDP
  - Paths
    - `SRC_BASE` - where it will look for the .mcl

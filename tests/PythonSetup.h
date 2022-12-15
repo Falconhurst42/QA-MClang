@@ -1,7 +1,15 @@
 #ifndef PYTHON_SETUP_H
 #define PYTHON_SETUP_H
 
-#include "../universal/Datapack.h"
+// PythonSetup (placeholder)
+// Header to assist python integration
+//    defunct until python integration finished
+// Ethan (created), 11/13/2022, 0.3.4-alpha
+// Ethan (updated), 11/14/2022, 0.3.4-alpha
+// Ethan (updated), 11/21/2022, 0.3.4-alpha
+// Ethan (updated), 11/29/2022, 0.3.4-alpha
+
+#include "universal/Datapack.h"
 #include <fstream>
 #include <thread>
 #include <map>

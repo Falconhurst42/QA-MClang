@@ -1,7 +1,14 @@
+// Commands
+// Tests MCLangs handling of functions, especial naming
+// Ethan (created), 10/19/2022, 0.3.4-alpha
+// Ethan (updated), 10/26/2022, 0.3.4-alpha
+// Ethan (updated), 11/12/2022, 0.3.4-alpha
+// Ethan (updated), 11/21/2022, 0.3.4-alpha
+
 #include <gtest/gtest.h>
-#include "../universal/Datapack.h"
-#include "../universal/test_utils.h"
-#include "../universal/utils.h"
+#include "universal/Datapack.h"
+#include "universal/test_utils.h"
+#include "universal/utils.h"
 #include "TestSetup.h"
 
 /***************************************|
@@ -10,6 +17,8 @@
 |                                       |
 |***************************************/
 
+// Checks handling of camel case function names
+// Ethan, 11/12/2022, Should Pass
 TEST(Functions, CamelCaseName) {
     Datapack src(HELLO_FILE);
     src.name = "Functions_CamelCaseName";
@@ -21,6 +30,8 @@ TEST(Functions, CamelCaseName) {
     // built files cleaned up by destructor when src falls out of scope
 }
 
+// Checks handling of pascal case function names
+// Ethan, 11/12/2022, Should Pass
 TEST(Functions, PascalCaseName) {
     Datapack src(HELLO_FILE);
     src.name = "Functions_PascalCaseName";
@@ -32,6 +43,8 @@ TEST(Functions, PascalCaseName) {
     // built files cleaned up by destructor when src falls out of scope
 }
 
+// Checks handling of all uppercase function names
+// Ethan, 11/12/2022, Should Pass
 TEST(Functions, UpperCaseName) {
     Datapack src(HELLO_FILE);
     src.name = "Functions_UpperCaseName";
@@ -48,6 +61,9 @@ TEST(Functions, UpperCaseName) {
 |            Starting Char              |
 |                                       |
 |***************************************/
+
+// Checks handling of function names beginning with an underscore
+// Ethan, 11/21/2022, Should Pass
 TEST(Functions, StartWithUnderscore) {
     Datapack src(HELLO_FILE);
     src.name = "Functions_StartWithUnderscore";
@@ -58,6 +74,8 @@ TEST(Functions, StartWithUnderscore) {
     // built files cleaned up by destructor when src falls out of scope
 }
 
+// Checks handling of function names (trying to) begin with an digit
+// Ethan, 11/21/2022, Should Pass
 TEST(Functions, StartWithDigit) {
     Datapack src(HELLO_FILE);
     src.name = "Functions_StartWithDigit";
@@ -73,6 +91,8 @@ TEST(Functions, StartWithDigit) {
 |            Similar Names              |
 |                                       |
 |***************************************/
+// Checks handling of functions with similar names
+// Ethan, 11/21/2022, Should Pass
 TEST(Functions, CaseDiff) {
     Datapack src(HELLO_FILE);
     src.name = "Functions_SameName";
@@ -85,6 +105,8 @@ TEST(Functions, CaseDiff) {
     // built files cleaned up by destructor when src falls out of scope
 }
 
+// Checks handling of functions with similar names (trying to trick it with periods)
+// Ethan, 11/21/2022, Should Pass
 TEST(Functions, CaseDiffPeriod) {
     Datapack src(HELLO_FILE);
     src.name = "Functions_CaseDiffPeriod";
@@ -99,6 +121,8 @@ TEST(Functions, CaseDiffPeriod) {
     // built files cleaned up by destructor when src falls out of scope
 }
 
+// Checks handling of functions with the same name (build fails)
+// Ethan, 11/21/2022, Should Pass
 TEST(Functions, SameName) {
     Datapack src(HELLO_FILE);
     src.name = "Functions_SameName";
@@ -115,6 +139,8 @@ TEST(Functions, SameName) {
 |                                       |
 |***************************************/
 
+// Checks handling of load function
+// Ethan, 10/19/2022, Should Pass
 TEST(Functions, LoadNI) {
     Datapack src(NI_TICK_LOAD_FILE);
     src.name = "Functions_LoadNI";
@@ -125,6 +151,8 @@ TEST(Functions, LoadNI) {
     // built files cleaned up by destructor when src falls out of scope
 }
 
+// Checks handling of load function (without initializing variables)
+// Ethan, 10/19/2022, Should Pass
 TEST(Functions, LoadNI_NoVars) {
     Datapack src(NI_TICK_LOAD_FILE);
     src.name = "Functions_LoadNI_NoVars";
@@ -137,6 +165,8 @@ TEST(Functions, LoadNI_NoVars) {
     // built files cleaned up by destructor when src falls out of scope
 }
 
+// Checks handling of tick function
+// Ethan, 10/19/2022, Should Pass
 TEST(Functions, TickNI) {
     Datapack src(NI_TICK_LOAD_FILE);
     src.name = "Functions_TickNI";
@@ -147,6 +177,8 @@ TEST(Functions, TickNI) {
     // built files cleaned up by destructor when src falls out of scope
 }
 
+// Checks handling of tick function (without initializing variables)
+// Ethan, 10/19/2022, Should Pass
 TEST(Functions, TickNI_NoVars) {
     Datapack src(NI_TICK_LOAD_FILE);
     src.name = "Functions_TickNI_NoVars";
@@ -159,6 +191,8 @@ TEST(Functions, TickNI_NoVars) {
     // built files cleaned up by destructor when src falls out of scope
 }
 
+// Checks handling of tick and load function
+// Ethan, 10/19/2022, Should Pass
 TEST(Functions, TickLoadNI) {
     Datapack src(NI_TICK_LOAD_FILE);
     src.name = "Functions_TickLoadNI";

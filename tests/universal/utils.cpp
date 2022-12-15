@@ -1,7 +1,22 @@
-// Utils
+// utils.cpp
 // Utilies for GTest testing of MCLang
-// Ethan Worth
-// 10/10/2022
+// Structure:
+//    File Checkers:    functions for determining if a files and directories exists as well as accessing their contents
+//    Params: Reads     certain default paths/names from `universal/configs.json`
+//    Path Generators:  standardized functions for generating relative paths to source/compiled files
+//       MCFunctions:       Specialized functions for interacting with .mcfunction files created by a datapack
+//       Python Interface:  Specialized function for managing communication with Python
+//    General Utils:    generally useful functs
+//    Execute Commands: Functionality to robustly execute system commands and return their results. 
+//                      Special functions for building particular source files using MCLang and for deleting the compiled files afterwards
+//       `CommandResult`:   Struct to store the output (`str`) and return code (`int`) of a command execution
+// Ethan Worth (created), 10/26/2022
+// Ethan Worth (updated), 11/8/2022
+// Ethan Worth (updated), 11/13/2022
+// Ethan Worth (updated), 11/14/2022
+// Ethan Worth (updated), 11/16/2022
+// Ethan Worth (updated), 11/21/2022
+// Ethan Worth (updated), 12/7/2022
 
 #include "utils.h"
 
@@ -340,9 +355,9 @@ CommandResult makeAndBuildFile(std::string filename, std::string contents) {
 //  to skip -o but provide -n, use `build(fff, "", nnn)`
 CommandResult buildFile(std::string srcpath, std::string o, std::string n) {
 #ifdef _WIN32
-    std::string cmd = "..\\..\\build\\main.exe " + srcpath;
+    std::string cmd = "..\\build\\main.exe " + srcpath;
 #else
-    std::string cmd = "../../build/main " + srcpath;
+    std::string cmd = "../build/main " + srcpath;
 #endif
     if(o != "")
         cmd.append(" -o " + o);

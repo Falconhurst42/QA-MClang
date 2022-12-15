@@ -1,3 +1,24 @@
+// Datapack.cpp
+// Defines a class to model a MCLang datapack
+//   handles the creation and file handling of a datapack
+//   provides aliases for many `utils.h` functions which automatically feed in the information from the Datapack
+// Structure:
+//    Sub Types:            represent coponents of a datapack
+//       Variable
+//       Function
+//       Namespace
+//    Member Access/Edit:   Getters and Setters for member variables
+//    Parsing & Generation: Parses datapack to text and generates a .mcl file to build from
+//    Util Mirrors:         Aliases for `utils` functions with information from the datapack automatically fed in
+//       Path Generators
+//       MC Functions
+//       Python Interfaces
+//       Cleanup
+//    Building:             Function to perform a build of the datapack
+// Ethan Worth (created), 10/19/2022
+// Ethan Worth (updated), 11/8/2022
+// Ethan Worth (updated), 11/12/2022
+
 #include "Datapack.h"
 #include "utils.h"
 #include <string>

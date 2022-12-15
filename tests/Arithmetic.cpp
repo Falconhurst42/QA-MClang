@@ -1,12 +1,14 @@
-// testArithmetic.cpp
-//#include "testDatapacks.cpp"
+// Arithmetic
+// Verifies behavior of MCLang's compile-time arithmetic
+// Adam (created), 11/16/2022, 0.3.4-alpha
+// Adam, Ethan (ported), 12/12/2022, 0.3.4-alpha
+
 #include "TestSetup.h"
+#include "universal/Datapack.h"
 #include <gtest/gtest.h>
 
-//../../build/main "testBuildArithmetic.mcl"
-//Testing compile Time arithmetic
-//All should pass except the comment ones 
-
+// Test compile-time addition
+// Adam, 11/16, Should Pass
 TEST(Arithmetic, Addition) {
     Datapack src((std::vector<Datapack::Function>){ ADD });
     src.name = "Arithmetic_Addition";
@@ -17,6 +19,8 @@ TEST(Arithmetic, Addition) {
     // built files cleaned up by destructor when src falls out of scope
 }
 
+// Test compile-time subtraction
+// Adam, 11/16, Should Pass
 TEST(Arithmetic, Subtraction) {
     Datapack src((std::vector<Datapack::Function>){ SUB });
     src.name = "Arithmetic_Subtraction";
@@ -27,6 +31,8 @@ TEST(Arithmetic, Subtraction) {
     // built files cleaned up by destructor when src falls out of scope
 }
 
+// Test compile-time multiplication
+// Adam, 11/16, Should Pass
 TEST(Arithmetic, Multiplication) {
     Datapack src((std::vector<Datapack::Function>){ MULT });
     src.name = "Arithmetic_Multiplication";
@@ -37,6 +43,8 @@ TEST(Arithmetic, Multiplication) {
     // built files cleaned up by destructor when src falls out of scope
 }
 
+// Test compile-time division
+// Adam, 11/16, Should Pass
 TEST(Arithmetic, Division) {
     Datapack src((std::vector<Datapack::Function>){ DIV });
     src.name = "Arithmetic_Division";
@@ -47,6 +55,8 @@ TEST(Arithmetic, Division) {
     // built files cleaned up by destructor when src falls out of scope
 }
 
+// Test compile-time modulus
+// Adam, 11/16, Should Pass
 TEST(Arithmetic, Modulus) {
     Datapack src((std::vector<Datapack::Function>){ MOD });
     src.name = "Arithmetic_Modulus";
@@ -57,6 +67,8 @@ TEST(Arithmetic, Modulus) {
     // built files cleaned up by destructor when src falls out of scope
 }
 
+// Test compile-time order of operations
+// Adam, 11/16, Should Pass
 TEST(Arithmetic, Order) {
     Datapack src((std::vector<Datapack::Function>){ PEMDAS });
     src.name = "Arithmetic_Order";
@@ -67,6 +79,8 @@ TEST(Arithmetic, Order) {
     // built files cleaned up by destructor when src falls out of scope
 }
 
+// Test compile-time order of operations
+// Adam, 11/16, Should Pass
 TEST(Arithmetic, Order2) {
     Datapack src((std::vector<Datapack::Function>){ PEMDAS2 });
     src.name = "Arithmetic_Order2";
@@ -77,6 +91,8 @@ TEST(Arithmetic, Order2) {
     // built files cleaned up by destructor when src falls out of scope
 }
 
+// Test compile-time comparison operators
+// Adam, 11/16, Should Pass
 TEST(Arithmetic, CompareTrue) {
     Datapack src((std::vector<Datapack::Function>){ TCOMP });
     src.name = "Arithmetic_CompareTrue";
@@ -87,6 +103,8 @@ TEST(Arithmetic, CompareTrue) {
     // built files cleaned up by destructor when src falls out of scope
 }
 
+// Test compile-time comparison operators
+// Adam, 11/16, Should Pass
 TEST(Arithmetic, CompareFalse) {
     Datapack src((std::vector<Datapack::Function>){ FCOMP });
     src.name = "Arithmetic_CompareFalse";
@@ -97,6 +115,8 @@ TEST(Arithmetic, CompareFalse) {
     // built files cleaned up by destructor when src falls out of scope
 }
 
+// Test compile-time comparison operators (or)
+// Adam, 11/16, Should Pass
 TEST(Arithmetic, CompareOr) {
     Datapack src((std::vector<Datapack::Function>){ ORCOMP });
     src.name = "Arithmetic_CompareOr";
@@ -107,6 +127,8 @@ TEST(Arithmetic, CompareOr) {
     // built files cleaned up by destructor when src falls out of scope
 }
 
+// Test compile-time comparison operators (not)
+// Adam, 11/16, Should Pass
 TEST(Arithmetic, CompareNot) {
     Datapack src((std::vector<Datapack::Function>){ NOTCOMP });
     src.name = "Arithmetic_CompareNot";
@@ -117,6 +139,8 @@ TEST(Arithmetic, CompareNot) {
     // built files cleaned up by destructor when src falls out of scope
 }
 
+// Test compile-time comment parsing
+// Adam, 11/16, Should Pass
 TEST(cLike, SingleComment) {
     Datapack src((std::vector<Datapack::Function>){ COMMENT1 });
     src.name = "Arithmetic_SingleComment";
@@ -127,6 +151,8 @@ TEST(cLike, SingleComment) {
     // built files cleaned up by destructor when src falls out of scope
 }
 
+// Test compile-time comment parsing
+// Adam, 11/16, Should Pass
 TEST(cLike, MultiComment) {
     Datapack src((std::vector<Datapack::Function>){ COMMENT2 });
     src.name = "Arithmetic_MultiComment";

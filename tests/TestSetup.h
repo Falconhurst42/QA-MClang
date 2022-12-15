@@ -1,9 +1,17 @@
 #ifndef TEST_SETUP_H
 #define TEST_SETUP_H
 
+// TestSetup.h
+// Header for the creation of useful objects to be used in testing
+//  specifically, Datapacks and sub-components which many be reused by tests
+// Ethan (created), 10/9/2022
+// Ethan (updated), 11/12/2022
+// Adam, Ethan (porting), 12/12/2022
+// Adam, Ethan (porting), 12/15/2022
+
 #include <gtest/gtest.h>
-#include "../universal/Datapack.h"
-#include "../universal/utils.h"
+#include "universal/Datapack.h"
+#include "universal/utils.h"
 #include <fstream>
 
 const Datapack::Variable N_VAR = {"int", "n"},
@@ -207,6 +215,61 @@ const Datapack::Function PARSER_FAILS = {
     std::vector<Datapack::Variable>(),
     std::string("const str TEST = \"Testing \" Double Quote!\";")
     + "\n/tellraw @a testing: {{TEST}}"
+};
+
+const Datapack::Function SUB_ONE = {
+    "void",
+    "sub_one",
+    std::vector<Datapack::Variable>(),
+    std::string("   int x = 1;") + "\n" + "    x--;"
+};
+
+const Datapack SUB_FILE = {
+    (std::vector<Datapack::Function>) { SUB_ONE }
+};
+
+const Datapack::Function ADD_ONE = {
+    "void",
+    "add_one",
+    std::vector<Datapack::Variable>(),
+    std::string("   int x = 1;") + "\n" + "   x++;"
+};
+
+const Datapack ADD_FILE = {
+    (std::vector<Datapack::Function>) { ADD_ONE }
+};
+
+const Datapack::Function DIV_FOUR = {
+    "void",
+    "div_four",
+    std::vector<Datapack::Variable>(),
+    std::string("   int x = 16;") + "\n" + "    x = x / 4;"
+};
+
+const Datapack DIV_FILE = {
+    (std::vector<Datapack::Function>) { DIV_FOUR }
+};
+
+const Datapack::Function MULT_FOUR = {
+    "void",
+    "MULT_FOUR",
+    std::vector<Datapack::Variable>(),
+    std::string("   int x = 4;") + "\n" + "    x = x * 3;"
+};
+
+const Datapack MULT_FILE = {
+    (std::vector<Datapack::Function>) { MULT_FOUR }
+};
+
+const Datapack::Function SUMMON_OCE = {
+    "void",
+    "SUMMON_OCE",
+    std::vector<Datapack::Variable>(),
+    std::string("   for (int i = 0; i < 10; i++) {") + "\n" + "      /summon ocelot" + "\n" + "   }"
+};
+
+const Datapack SUMMON_FILE = {
+    (std::vector<Datapack::Function>) { SUMMON_OCE }
 };
 
 #endif
