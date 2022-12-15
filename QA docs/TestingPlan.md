@@ -1,20 +1,21 @@
 # Testing Plan
 ## MCLang 0.3.4-alpha
-### Created 10/26/2022 by Adam Callahan, Brendan van Diest, Ethan Worth, 
+### Created 10/26/2022 by Adam Callahan, Brendan van Diest, Ethan Worth 
 ### Updated 11/16/2022 by Ethan Worth
  - Specifiy pywinauto integration methodology under "How we are combining our tests"
  - Added "Code Review" Section
-
-# To Add?
- - ## Finish "Coding Practices"
- - ## Revise "What we are testing" and "What we are not testing"
- - ## Revise "Code Review"
- - ## Update "How we are combining our tests"
- - ## Add? Product View (static analysis, code coverage)
-   - dicussion of potential methods (need to alter the MCLang build)
- - ## Add? User View
-   - -ilities
-     - Reliability (stress test)
+### Updated 12/7/2022 by Adam Callahan, Brendan van Diest, Ethan Worth
+ - Added "Exploratory Testing" Section
+### Updated 12/12/2022 by Brendan van Diest, Ethan Worth
+ - Added notes on pywinauto
+### Updated 12/14/2022 by Brendan van Diest
+ - Added relfection on pywinauto
+### Updated 12/15/2022 by Adam Callahan, Ethan Worth
+ - Updated "Coding Practices"
+ - Updated "What we are testing"
+ - Updated "How we are combining our tests"
+ - Updated "Bug Handling"
+ - Polished doc for final presentation
 
 <br/>
 
