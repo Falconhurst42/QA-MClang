@@ -220,7 +220,7 @@ Each variation would throw this error:
 ```
 pywinauto.findwindows.ElementNotFoundError: {'best_match': 'Menu', 'top_level_only': False, 'parent': <uia_element_info.UIAElementInfo - 'Minecraft 1.19.3', GLFW30, 853526>, 'backend': 'uia'}
 ```
-The `{'best_match': 'Menu'` is the best match algorithm not finding 'Menu'
+The `{'best_match': 'Menu'` is the best match algorithm not finding 'Menu' when searching through the Minecraft dialog. Upon further research, we found that pywinauto works best with default Windows applications like Paint, File Explorer, and apps like that. It is also reasonable to say that the Minecraft devs didn't want anyone to be able to create a script to run their game, so making elements in the menus hard to access makes sense. The best way  we could find the titles of the menu elements is by looking at source code, which, if accessible, would be a miracle. 
 
 # Code Reviews
 A single unified, but cursory code review of the MCLang source code was completed on 11/11, which yielded some additional insight into the workings of the product. In this meeting, each group member pre-selected and presented interesting functions from the code base, and the group discussed the details and vulnerabilities of each section. Further code review is encouraged as group members build out additional tests.
